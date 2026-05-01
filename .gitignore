@@ -9,3 +9,5 @@ build/
 *.log
 .DS_Store
 tsconfig.tsbuildinfo
+.venv/
+__pycache__/
