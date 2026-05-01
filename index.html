@@ -1,0 +1,1759 @@
+<!--
+  VOID CRYPT — index.html
+  Deploy: Vercel (arrastar pasta ou conectar GitHub)
+  GitHub: https://github.com/gabbswq/voidcrypt
+
+  Para subir:
+  1. git init
+  2. git add .
+  3. git commit -m "feat: VOID CRYPT v1"
+  4. git remote add origin https://github.com/gabbswq/voidcrypt.git
+  5. git push -u origin main
+  6. Acesse vercel.com → New Project → importar do GitHub → deploy
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOID CRYPT — O sinal no ruído do futuro</title>
+  <meta name="description" content="Notícias e análises sobre Tech, Finance, Startups, IA e Web3. Fundado por Gabriel Diniz.">
+  <meta property="og:title" content="VOID CRYPT">
+  <meta property="og:description" content="O sinal no ruído do futuro">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://voidcrypt.vercel.app">
+  <link rel="canonical" href="https://voidcrypt.vercel.app">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- ================================================
+       === CSS INLINE — TODO ESTYLING ===
+       ================================================ -->
+  <style>
+    /* === RESET & VARIABLES === */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #050508;
+      --bg-secondary: #0d0d14;
+      --bg-card: #111118;
+      --accent-cyan: #00f5d4;
+      --accent-purple: #7b2fff;
+      --accent-amber: #ffb800;
+      --text-primary: #f0f0f5;
+      --text-secondary: #8888a8;
+      --border: #1e1e2e;
+      --gradient-hero: linear-gradient(135deg, #050508 0%, #0d0d14 50%, #0a0a18 100%);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul { list-style: none; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* === SECTION: TICKER BAR === */
+    .ticker-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      height: 28px;
+      background: rgba(0, 245, 212, 0.1);
+      border-bottom: 1px solid var(--accent-cyan);
+      overflow: hidden;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-cyan);
+    }
+
+    .ticker-content {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 40s linear infinite;
+    }
+
+    .ticker-item {
+      flex-shrink: 0;
+      padding: 0 20px;
+      line-height: 28px;
+    }
+
+    .ticker-item .sep {
+      color: var(--accent-purple);
+      margin: 0 10px;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* === SECTION: NAVBAR === */
+    .navbar {
+      position: sticky;
+      top: 28px;
+      z-index: 1000;
+      background: rgba(5, 5, 8, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .logo-shape {
+      width: 20px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 3px;
+      transform: rotate(45deg);
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      line-height: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-text .void {
+      font-size: 18px;
+      color: var(--accent-cyan);
+      letter-spacing: 2px;
+    }
+
+    .logo-text .crypt {
+      font-size: 11px;
+      color: var(--accent-purple);
+      letter-spacing: 4px;
+    }
+
+    /* Nav Links (desktop) */
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-cyan);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Nav right */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-search-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 6px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-search-btn:hover {
+      color: var(--accent-cyan);
+    }
+
+    .btn-newsletter {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border: 1px solid var(--accent-cyan);
+      background: transparent;
+      color: var(--accent-cyan);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-newsletter:hover {
+      background: var(--accent-cyan);
+      color: var(--bg-primary);
+    }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 5px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Search overlay */
+    .search-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(5, 5, 8, 0.92);
+      backdrop-filter: blur(20px);
+      z-index: 2000;
+      padding: 30px 20px;
+    }
+
+    .search-overlay.active {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 120px;
+    }
+
+    .search-overlay-inner {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .search-overlay input {
+      width: 100%;
+      padding: 16px 20px;
+      font-family: var(--font-body);
+      font-size: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      outline: none;
+      transition: border 0.3s ease;
+    }
+
+    .search-overlay input:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .search-overlay input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .search-close-hint {
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .search-results {
+      margin-top: 20px;
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+    .search-result-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .search-result-item:hover {
+      color: var(--accent-cyan);
+    }
+
+    .search-result-item .sr-cat {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .search-result-item .sr-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    /* Mobile sidebar */
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1500;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 280px;
+      height: 100%;
+      background: var(--bg-primary);
+      border-right: 1px solid var(--border);
+      z-index: 1501;
+      padding: 80px 24px 40px;
+      transition: left 0.3s ease;
+    }
+
+    .mobile-sidebar.active {
+      left: 0;
+    }
+
+    .mobile-sidebar a {
+      display: block;
+      padding: 14px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border);
+      transition: color 0.3s ease;
+    }
+
+    .mobile-sidebar a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* === SECTION: HERO === */
+    .hero {
+      margin-top: 92px;
+      padding: 60px 0 80px;
+      background: var(--gradient-hero);
+      position: relative;
+      min-height: 80vh;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v1H0zM0 59h60v1H0zM0 0h1v60H0zM59 0h1v60H59z' fill='%2300f5d4' fill-opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* noise overlay */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent-cyan);
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .hero-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: var(--accent-cyan);
+      color: var(--bg-primary);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 6px;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 245, 212, 0.3);
+    }
+
+    .hero-visual {
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(0, 245, 212, 0.08), rgba(123, 47, 255, 0.15));
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual::before {
+      content: 'VOID';
+      font-family: var(--font-display);
+      font-size: 60px;
+      font-weight: 800;
+      color: rgba(0, 245, 212, 0.08);
+      letter-spacing: 8px;
+    }
+
+    /* Breaking news mini-cards */
+    .breaking-news {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .breaking-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .breaking-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .breaking-card:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 4px 20px rgba(0, 245, 212, 0.1);
+    }
+
+    .breaking-card .bn-cat {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .breaking-card .bn-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .breaking-card .bn-time {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+
+    /* cat colors */
+    .cat-ia { color: var(--accent-cyan); }
+    .cat-finance { color: var(--accent-amber); }
+    .cat-web3 { color: var(--accent-purple); }
+    .cat-startups { color: var(--accent-cyan); }
+    .cat-tech { color: var(--accent-purple); }
+
+    /* === SECTION: NOTICIAS GRID === */
+    .noticias {
+      padding: 80px 0;
+    }
+
+    .section-header-inline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-title-bar {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 24px;
+    }
+
+    .section-title-bar .slash {
+      color: var(--accent-cyan);
+    }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-tab {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-tab:hover {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    .filter-tab.active {
+      background: var(--accent-cyan);
+      color: var(--bg-primary);
+      border-color: var(--accent-cyan);
+    }
+
+    /* News Grid */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .news-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .news-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 8px 30px rgba(0, 245, 212, 0.15);
+    }
+
+    .news-card.hidden {
+      opacity: 0 !important;
+      transform: scale(0.95);
+      pointer-events: none;
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .news-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-body .card-cat {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .card-body .card-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 1.3;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-body .card-excerpt {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .card-meta .bookmark {
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-size: 14px;
+    }
+
+    .card-meta .bookmark:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* === SECTION: CATEGORIAS DESTAQUE === */
+    .categorias-destaque {
+      padding: 60px 0 80px;
+      background: var(--bg-secondary);
+    }
+
+    .columns-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    .col-section h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 20px;
+      margin-bottom: 24px;
+    }
+
+    .col-section h3 .slash {
+      color: var(--accent-cyan);
+    }
+
+    .col-article {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .col-article:hover .col-article-title {
+      color: var(--accent-cyan);
+    }
+
+    .col-article-cat {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+
+    .col-article-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .col-article-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* === SECTION: SOBRE === */
+    .sobre {
+      padding: 80px 0;
+      background: var(--bg-secondary);
+    }
+
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .manifesto-block {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .manifesto-block .line {
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      margin-bottom: 4px;
+    }
+
+    .manifesto-block .line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .manifesto-block .accent {
+      color: var(--accent-cyan);
+    }
+
+    .founder-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .founder-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--bg-primary);
+      margin-bottom: 16px;
+    }
+
+    .founder-card h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    .founder-card .founder-role {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent-cyan);
+      margin-bottom: 14px;
+    }
+
+    .founder-card .founder-bio {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .founder-social {
+      display: flex;
+      gap: 14px;
+    }
+
+    .founder-social a {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .founder-social a:hover {
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+    }
+
+    /* === SECTION: NEWSLETTER === */
+    .newsletter {
+      padding: 80px 0;
+    }
+
+    .newsletter-inner {
+      background: linear-gradient(135deg, rgba(123, 47, 255, 0.08), rgba(0, 245, 212, 0.08));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 50px 40px;
+      text-align: center;
+    }
+
+    .newsletter-inner h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(22px, 3vw, 32px);
+      margin-bottom: 10px;
+    }
+
+    .newsletter-inner p.sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 18px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      outline: none;
+      transition: border 0.3s ease;
+    }
+
+    .newsletter-form input:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .newsletter-form button {
+      padding: 14px 28px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      background: var(--accent-cyan);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .newsletter-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 245, 212, 0.3);
+    }
+
+    .newsletter-success {
+      display: none;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--accent-cyan);
+    }
+
+    .newsletter-success.show {
+      display: block;
+    }
+
+    .newsletter-proof {
+      margin-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* === SECTION: FOOTER === */
+    .footer {
+      background: #030305;
+      border-top: 1px solid var(--border);
+      padding: 48px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 4px 0;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .footer-brand .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand .footer-logo .logo-shape {
+      width: 18px;
+      height: 18px;
+    }
+
+    .footer-brand .footer-tagline {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer-social a {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .footer-social a:hover {
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .footer-bottom span {
+      font-family: var(--font-mono);
+    }
+
+    /* === RESPONSIVE: Tablet <= 768px === */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .btn-newsletter { display: none; }
+      .nav-toggle { display: flex; }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero { padding: 40px 0 60px; min-height: auto; }
+
+      .breaking-news {
+        grid-template-columns: 1fr;
+      }
+
+      .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .columns-two {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .sobre-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+
+      .newsletter-inner { padding: 36px 24px; }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+    }
+
+    /* === RESPONSIVE: Mobile <= 480px === */
+    @media (max-width: 480px) {
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* === RESPONSIVE: Desktop grande === */
+    @media (min-width: 1200px) {
+      .container,
+      .nav-inner {
+        max-width: 1200px;
+      }
+
+      .news-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* === Scroll animations base === */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SECTION: TICKER BAR -->
+  <div class="ticker-bar" id="tickerBar">
+    <div class="ticker-content" id="tickerContent">
+      <span class="ticker-item">
+        BTC $104,320 ▲2.4% <span class="sep">·</span> ETH $3,891 ▲1.1% <span class="sep">·</span> SOL $187 ▼0.8% <span class="sep">·</span> NVIDIA +3.2% <span class="sep">·</span> OpenAI levanta $40B <span class="sep">·</span> Brasil: novas regras cripto 2025 <span class="sep">·</span> AGI: quando? <span class="sep">·</span> VOID CRYPT — O sinal no ruído do futuro <span class="sep">·</span>
+      </span>
+      <span class="ticker-item">
+        BTC $104,320 ▲2.4% <span class="sep">·</span> ETH $3,891 ▲1.1% <span class="sep">·</span> SOL $187 ▼0.8% <span class="sep">·</span> NVIDIA +3.2% <span class="sep">·</span> OpenAI levanta $40B <span class="sep">·</span> Brasil: novas regras cripto 2025 <span class="sep">·</span> AGI: quando? <span class="sep">·</span> VOID CRYPT — O sinal no ruído do futuro <span class="sep">·</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- SECTION: NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="logo-shape"></div>
+        <div class="logo-text">
+          <span class="void">VOID</span>
+          <span class="crypt">CRYPT</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#tech">Tech</a>
+        <a href="#finance">Finance</a>
+        <a href="#startups">Startups</a>
+        <a href="#ia">IA</a>
+        <a href="#web3">Web3</a>
+        <a href="#analises">Análises</a>
+      </div>
+
+      <div class="nav-right">
+        <button class="nav-search-btn" id="searchToggle" aria-label="Buscar">
+          <i class="fas fa-search"></i>
+        </button>
+        <a href="#newsletter" class="btn-newsletter">Newsletter</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SECTION: SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay-inner">
+      <input type="text" id="searchInput" placeholder="Buscar noticias e análises..." autocomplete="off">
+      <div class="search-close-hint">Pressione ESC para fechar</div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- SECTION: MOBILE SIDEBAR -->
+  <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <a href="#home" data-mobile-link>Home</a>
+    <a href="#noticias" data-mobile-link>Últimas</a>
+    <a href="#ia" data-mobile-link>IA</a>
+    <a href="#finance" data-mobile-link>Finance</a>
+    <a href="#startups" data-mobile-link>Startups</a>
+    <a href="#web3" data-mobile-link>Web3</a>
+    <a href="#analises" data-mobile-link>Análises</a>
+    <a href="#sobre" data-mobile-link>Sobre</a>
+    <a href="#newsletter" data-mobile-link>Newsletter</a>
+  </div>
+
+  <!-- SECTION: HERO -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="hero-tag cat-ia">[ IA ]</span>
+          <h1 class="hero-title">
+            OpenAI levanta <span class="highlight">US$40B</span>: o que isso muda para fundadores brasileiros
+          </h1>
+          <p class="hero-subtitle">
+            O maior round de fundraising da história está redistribuindo o poder global. Entenda os reflexos no ecossistema de startups brasileiro e para onde o capital está fluindo.
+          </p>
+          <p class="hero-meta">Por Gabriel Diniz · 07 Abr 2026 · 5 min de leitura</p>
+          <a href="#noticias" class="hero-cta">Leia agora <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-visual"></div>
+      </div>
+
+      <div class="breaking-news">
+        <div class="breaking-card" data-delay="0">
+          <div class="bn-cat cat-ia">[ IA ]</div>
+          <div class="bn-title">Claude 4 Opus destrói benchmarks — o que muda pra devs</div>
+          <div class="bn-time">há 2h</div>
+        </div>
+        <div class="breaking-card" data-delay="100">
+          <div class="bn-cat cat-finance">[ FINANCE ]</div>
+          <div class="bn-title">Bitcoin volta a testar $100K — análise semanal</div>
+          <div class="bn-time">há 4h</div>
+        </div>
+        <div class="breaking-card" data-delay="200">
+          <div class="bn-cat cat-web3">[ WEB3 ]</div>
+          <div class="bn-title">RWA tokenization atinge US$12B em market cap</div>
+          <div class="bn-time">há 6h</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: NOTICIAS -->
+  <section class="noticias" id="noticias">
+    <div class="container">
+      <div class="section-header-inline">
+        <h2 class="section-title-bar"><span class="slash">//</span> ULTIMAS</h2>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">Tudo</button>
+          <button class="filter-tab" data-filter="tech">Tech</button>
+          <button class="filter-tab" data-filter="finance">Finance</button>
+          <button class="filter-tab" data-filter="ia">IA</button>
+          <button class="filter-tab" data-filter="web3">Web3</button>
+          <button class="filter-tab" data-filter="startups">Startups</button>
+        </div>
+      </div>
+
+      <div class="news-grid" id="newsGrid">
+
+        <!-- Card 1 — IA -->
+        <div class="news-card" data-category="ia">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(0,245,212,0.15) 0%, rgba(0,245,212,0.03) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-ia">[ IA ]</div>
+            <h3 class="card-title">Claude 4 Opus destrói benchmarks — o que muda pra devs</h3>
+            <p class="card-excerpt">O novo modelo da Anthropic supera GPT-5 em coding, raciocínio e seguimento de instruções. Entenda o impacto prático no seu workflow.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 07 Abr 2026 · 4 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Finance -->
+        <div class="news-card" data-category="finance">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(255,184,0,0.15) 0%, rgba(255,184,0,0.03) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-finance">[ FINANCE ]</div>
+            <h3 class="card-title">Bitcoin ultrapassa $100K pela segunda vez: análise técnica</h3>
+            <p class="card-excerpt">Após correção de 35%, BTC reconstrói topos. Suportes, resistências e o papel dos ETFs no novo ciclo de alta institucional.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 06 Abr 2026 · 6 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — Web3 -->
+        <div class="news-card" data-category="web3">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(123,47,255,0.15) 0%, rgba(123,47,255,0.03) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-web3">[ WEB3 ]</div>
+            <h3 class="card-title">Solana bate recorde de TPS — Ethereum responde</h3>
+            <p class="card-excerpt">65.000 transações por segundo na mainnet-beta da Solana. A Ethereum Foundation já prepara o Pectra upgrade como resposta.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 05 Abr 2026 · 5 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 — Startups -->
+        <div class="news-card" data-category="startups">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(0,245,212,0.12) 0%, rgba(123,47,255,0.08) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-startups">[ STARTUPS ]</div>
+            <h3 class="card-title">Y Combinator W25: as 10 startups mais quentes do batch</h3>
+            <p class="card-excerpt">Do agent builders ao devtools para IA, o W25 prova que o futuro do software está sendo construído agora. Conheça as mais promissoras.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 04 Abr 2026 · 7 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 — Tech -->
+        <div class="news-card" data-category="tech">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(123,47,255,0.1) 0%, rgba(0,245,212,0.08) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-tech">[ TECH ]</div>
+            <h3 class="card-title">Apple Intelligence chega ao Brasil — o que funciona de verdade</h3>
+            <p class="card-excerpt">Testamos a fundo todas as features disponíveis. Apple Intelligence é hype ou realidade no mercado brasileiro? Spoiler: depende.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 03 Abr 2026 · 4 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 — IA -->
+        <div class="news-card" data-category="ia">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(0,245,212,0.18) 0%, rgba(123,47,255,0.06) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-ia">[ IA ]</div>
+            <h3 class="card-title">n8n + Claude: como fundadores estão automatizando o impossível</h3>
+            <p class="card-excerpt">Workflows que antes exigiam uma equipe inteira agora rodam no n8n com Claude API. Guia prático com templates reais.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 02 Abr 2026 · 8 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 — Finance -->
+        <div class="news-card" data-category="finance">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(255,184,0,0.12) 0%, rgba(255,184,0,0.03) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-finance">[ FINANCE ]</div>
+            <h3 class="card-title">BNDES libera R$2B para startups deep tech nacionais</h3>
+            <p class="card-excerpt">O primeiro fundo do gênero no Brasil foca em semicondutores, biotech e AI. Veja como acessar o capital e quem já garantiu sua cota.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 01 Abr 2026 · 5 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 8 — Web3 -->
+        <div class="news-card" data-category="web3">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(123,47,255,0.2) 0%, rgba(0,245,212,0.05) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-web3">[ WEB3 ]</div>
+            <h3 class="card-title">RWA: o próximo ciclo do mercado cripto explicado</h3>
+            <p class="card-excerpt">Real world assets está na boca do foguete. De títulos do governo a imóveis tokenizados, saiba onde o smart money está posicionando.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 31 Mar 2026 · 6 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 9 — Startups -->
+        <div class="news-card" data-category="startups">
+          <div class="news-card-img" style="background: linear-gradient(135deg, rgba(0,245,212,0.1) 0%, rgba(255,184,0,0.08) 100%);"></div>
+          <div class="card-body">
+            <div class="card-cat cat-startups">[ STARTUPS ]</div>
+            <h3 class="card-title">Primeiro unicórnio de Curitiba? A startup que pode chegar lá</h3>
+            <p class="card-excerpt">Com valuation em US$900M e crescimento de 400% YoY, a fintech curitibana está a um round de distância. Veja os números.</p>
+            <div class="card-meta">
+              <span>Gabriel Diniz · 30 Mar 2026 · 5 min</span>
+              <i class="far fa-bookmark bookmark"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: CATEGORIAS DESTAQUE -->
+  <section class="categorias-destaque" id="ia">
+    <div class="container">
+      <div class="columns-two">
+
+        <!-- Coluna IA & Tech -->
+        <div class="col-section">
+          <h3><span class="slash">//</span> IA &amp; TECH</h3>
+          <div class="col-article" id="tech">
+            <span class="col-article-cat cat-ia">[ IA ]</span>
+            <div class="col-article-title">Agentes de IA autonomos rodam 24/7 em producao — e ninguém notou</div>
+            <div class="col-article-date">07 Abr 2026</div>
+          </div>
+          <div class="col-article">
+            <span class="col-article-cat cat-tech">[ TECH ]</span>
+            <div class="col-article-title">TypeScript 7.0: pattern matching e o que vem por aí</div>
+            <div class="col-article-date">06 Abr 2026</div>
+          </div>
+          <div class="col-article">
+            <span class="col-article-cat cat-ia">[ IA ]</span>
+            <div class="col-article-title">Fine-tuning de LLMs locais: custo, infra e o guia sem hype</div>
+            <div class="col-article-date">05 Abr 2026</div>
+          </div>
+          <div class="col-article">
+            <span class="col-article-cat cat-tech">[ TECH ]</span>
+            <div class="col-article-title">Bun 2.0 vs Node 24: benchmark head-to-head com números reais</div>
+            <div class="col-article-date">04 Abr 2026</div>
+          </div>
+        </div>
+
+        <!-- Coluna Finance & Web3 -->
+        <div class="col-section" id="finance">
+          <h3><span class="slash">//</span> FINANCE &amp; WEB3</h3>
+          <div class="col-article" id="web3">
+            <span class="col-article-cat cat-finance">[ FINANCE ]</span>
+            <div class="col-article-title">O carry trade que está deixando traders ricos — e como se proteger</div>
+            <div class="col-article-date">07 Abr 2026</div>
+          </div>
+          <div class="col-article">
+            <span class="col-article-cat cat-web3">[ WEB3 ]</span>
+            <div class="col-article-title">Layer-zero: interoperabilidade real ou narrativa de VCs?</div>
+            <div class="col-article-date">06 Abr 2026</div>
+          </div>
+          <div class="col-article">
+            <span class="col-article-cat cat-finance">[ FINANCE ]</span>
+            <div class="col-article-title">Dolarização digital: stablecoins como hedge para a classe média BR</div>
+            <div class="col-article-date">05 Abr 2026</div>
+          </div>
+          <div class="col-article">
+            <span class="col-article-cat cat-web3">[ WEB3 ]</span>
+            <div class="col-article-title">DePIN: infraestrutura descentralizada começa a competir com telcos</div>
+            <div class="col-article-date">04 Abr 2026</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: SOBRE -->
+  <section class="sobre" id="sobre">
+    <div class="container">
+      <div class="sobre-grid">
+
+        <div class="manifesto-block">
+          <div class="line">VOID CRYPT não é mais um blog.</div>
+          <div class="line">É um terminal de inteligência para quem está</div>
+          <div class="line">construindo — ou apostando — no <span class="accent">futuro digital</span>.</div>
+          <div class="line" style="margin-top: 12px;">Sem hype vazio. Sem influencer. Sem ads disfarçados.</div>
+          <div class="line"><span class="accent">Só sinal.</span></div>
+        </div>
+
+        <div class="founder-card">
+          <div class="founder-avatar">GD</div>
+          <h3>Gabriel Diniz</h3>
+          <div class="founder-role">Founder · VOID CRYPT</div>
+          <p class="founder-bio">Dev, empreendedor digital e obcecado por Web3. Construindo ferramentas e mídia para o próximo ciclo.</p>
+          <div class="founder-social">
+            <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/in/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/gabbswq" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: NEWSLETTER -->
+  <section class="newsletter" id="newsletter">
+    <div class="container">
+      <div class="newsletter-inner" id="newsletterInner">
+        <h2>Receba o sinal antes do mercado</h2>
+        <p class="sub">Análises semanais direto no seu email. Zero spam. Só o que importa.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="seu@email.com" required>
+          <button type="submit">Entrar</button>
+        </form>
+        <div class="newsletter-success" id="newsletterSuccess">✓ Confirmado. Bem-vindo ao VOID.</div>
+        <div class="newsletter-proof">Junte-se a +1.200 fundadores e builders</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: FOOTER -->
+  <footer class="footer" id="startups">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Col 1: Brand -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="logo-shape"></div>
+            <div class="logo-text">
+              <span class="void">VOID</span>
+              <span class="crypt">CRYPT</span>
+            </div>
+          </div>
+          <p class="footer-tagline">O sinal no ruído do futuro</p>
+          <div class="footer-social">
+            <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/in/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/gabbswq" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Editorias -->
+        <div class="footer-col">
+          <h4>Editorias</h4>
+          <a href="#tech">Tech</a>
+          <a href="#finance">Finance</a>
+          <a href="#startups">Startups</a>
+          <a href="#ia">IA</a>
+          <a href="#web3">Web3</a>
+          <a href="#analises" id="analises">Análises</a>
+        </div>
+
+        <!-- Col 3: Institucional -->
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <a href="#sobre">Sobre</a>
+          <a href="#contact" id="contact">Contato</a>
+          <a href="#">Anuncie</a>
+          <a href="#newsletter">Newsletter</a>
+        </div>
+
+        <!-- Col 4: Recursos -->
+        <div class="footer-col">
+          <h4>Recursos</h4>
+          <a href="https://github.com/gabbswq/voidcrypt" target="_blank">GitHub</a>
+          <a href="https://vercel.com" target="_blank">Vercel</a>
+          <a href="#">RSS</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 VOID CRYPT. Todos os direitos reservados.</span>
+        <span>Fundado por Gabriel Diniz</span>
+        <span>Feito com obsessão</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================================
+       === JAVASCRIPT ===
+       ================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* === 1. CATEGORY FILTER === */
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const newsGrid = document.getElementById('newsGrid');
+      const newsCards = document.querySelectorAll('.news-card');
+
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          filterTabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          const filter = tab.dataset.filter;
+
+          newsCards.forEach((card, i) => {
+            const cat = card.dataset.category;
+            if (filter === 'all' || cat === filter) {
+              card.classList.remove('hidden');
+              card.style.transitionDelay = `${i * 50}ms`;
+            } else {
+              card.classList.add('hidden');
+              card.style.transitionDelay = '0ms';
+            }
+          });
+        });
+      });
+
+      /* === 2. SEARCH OVERLAY === */
+      const searchToggle = document.getElementById('searchToggle');
+      const searchOverlay = document.getElementById('searchOverlay');
+      const searchInput = document.getElementById('searchInput');
+      const searchResults = document.getElementById('searchResults');
+
+      const allArticles = [];
+      newsCards.forEach(card => {
+        allArticles.push({
+          title: card.querySelector('.card-title').textContent,
+          cat: card.dataset.category,
+          element: card
+        });
+      });
+
+      searchToggle.addEventListener('click', () => {
+        searchOverlay.classList.add('active');
+        searchInput.focus();
+      });
+
+      function closeSearch() {
+        searchOverlay.classList.remove('active');
+        searchInput.value = '';
+        searchResults.innerHTML = '';
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSearch();
+      });
+
+      searchOverlay.addEventListener('click', (e) => {
+        if (e.target === searchOverlay) closeSearch();
+      });
+
+      searchInput.addEventListener('input', () => {
+        const q = searchInput.value.toLowerCase().trim();
+        if (!q) { searchResults.innerHTML = ''; return; }
+
+        const filtered = allArticles.filter(a =>
+          a.title.toLowerCase().includes(q)
+        );
+
+        searchResults.innerHTML = filtered.length
+          ? filtered.map(a => `
+              <div class="search-result-item">
+                <div class="sr-cat cat-${a.cat}">[${a.cat.toUpperCase()}]</div>
+                <div class="sr-title">${a.title}</div>
+              </div>
+            `).join('')
+          : '<p style="color: var(--text-secondary); margin-top: 20px; font-size: 14px;">Nenhum resultado encontrado.</p>';
+      });
+
+      /* === 3. INTERSECTION OBSERVER — SCROLL ANIMATIONS === */
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.news-card, .breaking-card, .fade-in').forEach(el => {
+        fadeObserver.observe(el);
+      });
+
+      // Manifesto lines
+      const manifestoLines = document.querySelectorAll('.manifesto-block .line');
+      const manifestoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      manifestoLines.forEach(line => manifestoObserver.observe(line));
+
+      /* === 4. MOBILE MENU === */
+      const navToggle = document.getElementById('navToggle');
+      const mobileSidebar = document.getElementById('mobileSidebar');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+      const mobileLinks = document.querySelectorAll('[data-mobile-link]');
+
+      function openMobile() {
+        navToggle.classList.add('active');
+        mobileSidebar.classList.add('active');
+        mobileOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobile() {
+        navToggle.classList.remove('active');
+        mobileSidebar.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      navToggle.addEventListener('click', () => {
+        if (mobileSidebar.classList.contains('active')) {
+          closeMobile();
+        } else {
+          openMobile();
+        }
+      });
+
+      mobileOverlay.addEventListener('click', closeMobile);
+
+      mobileLinks.forEach((link, i) => {
+        link.style.transitionDelay = `${i * 40}ms`;
+        link.addEventListener('click', closeMobile);
+      });
+
+      /* === 5. NEWSLETTER FORM === */
+      const newsletterForm = document.getElementById('newsletterForm');
+      const newsletterSuccess = document.getElementById('newsletterSuccess');
+
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        newsletterForm.style.display = 'none';
+        newsletterSuccess.classList.add('show');
+      });
+
+      /* === 6. BOOKMARK TOGGLE === */
+      document.querySelectorAll('.bookmark').forEach(icon => {
+        icon.addEventListener('click', (e) => {
+          e.stopPropagation();
+          icon.classList.toggle('far');
+          icon.classList.toggle('fas');
+        });
+      });
+
+    })();
+
+    console.log('⚡ VOID CRYPT — O sinal no ruído do futuro');
+  </script>
+</body>
+</html>
