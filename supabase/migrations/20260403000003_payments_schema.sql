@@ -120,17 +120,48 @@ CREATE TABLE public.prices (
   CONSTRAINT prices_interval_check
     CHECK (interval IS NULL OR interval IN ('day', 'week', 'month', 'year')),
   CONSTRAINT prices_currency_length
-    CHECK (char_length(currency) = 3),
-  -- Enforce: one_time products must have null interval; subscription products must not.
-  CONSTRAINT prices_interval_matches_product
-    CHECK (
-      (interval IS NULL) OR
-      EXISTS (
-        SELECT 1 FROM public.products p
-        WHERE p.id = product_id AND p.access_type = 'subscription'
-      )
-    )
+    CHECK (char_length(currency) = 3)
+  -- NOTE: interval ↔ product.access_type coherence is enforced by the trigger
+  -- prices_check_interval_matches_product below. PostgreSQL does not allow
+  -- subqueries inside CHECK constraints, so a trigger is required here.
 );
+
+-- ---------------------------------------------------------------------------
+-- Trigger: prices_check_interval_matches_product
+--   Enforces: if interval IS NOT NULL, the parent product must have
+--   access_type = 'subscription'. Rejects the row with a clear error message
+--   on both INSERT and UPDATE so the constraint violation is auditable.
+--
+--   Runs BEFORE INSERT OR UPDATE so the bad row never lands in the table.
+-- ---------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION public.check_price_interval_matches_product()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  v_access_type TEXT;
+BEGIN
+  IF NEW.interval IS NOT NULL THEN
+    SELECT access_type
+    INTO   v_access_type
+    FROM   public.products
+    WHERE  id = NEW.product_id;
+
+    IF v_access_type IS DISTINCT FROM 'subscription' THEN
+      RAISE EXCEPTION
+        'prices.interval must be NULL for products with access_type = ''%''. '
+        'Set interval = NULL for one-time products, or change the product access_type to ''subscription''.',
+        COALESCE(v_access_type, 'unknown');
+    END IF;
+  END IF;
+
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER prices_check_interval_matches_product
+  BEFORE INSERT OR UPDATE ON public.prices
+  FOR EACH ROW EXECUTE FUNCTION public.check_price_interval_matches_product();
 
 -- Stripe price IDs are globally unique; used by webhook handlers to look up
 -- which local price an event refers to.
