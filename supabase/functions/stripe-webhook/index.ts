@@ -15,6 +15,7 @@
 //   checkout.session.completed
 //   payment_intent.succeeded
 //   invoice.payment_succeeded
+//   customer.subscription.created
 //   customer.subscription.updated
 //   customer.subscription.deleted
 //
@@ -42,7 +43,7 @@ import { createClient, type SupabaseClient } from 'jsr:@supabase/supabase-js@2'
 const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY')!, {
   // Pin the API version so a Stripe dashboard upgrade never silently breaks
   // the event shape this function expects.
-  apiVersion: '2024-12-18.acacia',
+  apiVersion: '2025-02-24.acacia',
   httpClient: Stripe.createFetchHttpClient(),
 })
 
@@ -127,6 +128,10 @@ async function dispatch(event: Stripe.Event, db: SupabaseClient): Promise<void> 
       await onInvoicePaymentSucceeded(event, db)
       break
 
+    case 'customer.subscription.created':
+      await onSubscriptionUpdated(event, db)
+      break
+
     case 'customer.subscription.updated':
       await onSubscriptionUpdated(event, db)
       break
@@ -178,8 +183,10 @@ async function onCheckoutSessionCompleted(
     }
   }
 
-  // 2. Mark the local order completed.
-  const { data: order, error: orderErr } = await db
+  // 2. Mark the local order completed — primary lookup by stripe_session_id.
+  let order: { id: string; product_id: string; user_id: string | null } | null = null
+
+  const { data: primaryOrder, error: primaryErr } = await db
     .from('orders')
     .update({
       status: 'completed',
@@ -190,14 +197,52 @@ async function onCheckoutSessionCompleted(
     .select('id, product_id, user_id')
     .maybeSingle()
 
-  if (orderErr) {
-    // Non-fatal — order may not exist if checkout was initiated outside this
-    // system (e.g., a Stripe Payment Link).
+  if (primaryErr) {
     console.warn(
-      `[stripe-webhook] Order update for session ${session.id}: ${orderErr.message}`,
+      `[stripe-webhook] Order update for session ${session.id}: ${primaryErr.message}`,
     )
+  } else if (primaryOrder) {
+    order = primaryOrder
+    console.log(`[stripe-webhook] Order ${order.id} → completed`)
   } else {
-    console.log(`[stripe-webhook] Order ${order?.id ?? 'n/a'} → completed`)
+    // Fallback: stripe_session_id may be missing if the patch step in
+    // create-checkout failed non-fatally. Locate the order by metadata.order_id,
+    // which was set server-side in create-checkout and arrives via the validated
+    // Stripe event — not from client-supplied data.
+    const fallbackOrderId = session.metadata?.order_id ?? null
+    if (fallbackOrderId) {
+      const { data: fallbackOrder, error: fallbackErr } = await db
+        .from('orders')
+        .update({
+          status: 'completed',
+          stripe_session_id: session.id,
+          ...(intentId && { stripe_payment_intent_id: intentId }),
+          updated_at: now(),
+        })
+        .eq('id', fallbackOrderId)
+        .eq('status', 'pending')   // idempotency: skip if already completed
+        .select('id, product_id, user_id')
+        .maybeSingle()
+
+      if (fallbackErr) {
+        console.warn(
+          `[stripe-webhook] Fallback order update for ${fallbackOrderId}: ${fallbackErr.message}`,
+        )
+      } else if (fallbackOrder) {
+        order = fallbackOrder
+        console.log(`[stripe-webhook] Order ${order.id} → completed (via metadata fallback)`)
+      } else {
+        console.warn(
+          `[stripe-webhook] No pending order found for session ${session.id} or metadata.order_id ${fallbackOrderId}`,
+        )
+      }
+    } else {
+      // Non-fatal — order may not exist if checkout was initiated outside this
+      // system (e.g., a Stripe Payment Link).
+      console.warn(
+        `[stripe-webhook] No order found for session ${session.id} — possibly external checkout`,
+      )
+    }
   }
 
   // 3. Trigger Discord role provisioning if the product maps to a role.
