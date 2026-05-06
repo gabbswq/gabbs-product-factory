@@ -72,3 +72,54 @@ E colar no ChatGPT para revisão.
 - `package.json`.
 - Migrations e schema do Supabase.
 - Configuração da Stripe.
+
+---
+
+# Atualização de fechamento — 2026-05-06
+
+Esta seção é a atualização mais recente e prevalece sobre o snapshot anterior neste arquivo.
+
+## FE-02 concluída
+
+- Status: concluída, commitada e publicada.
+- Commit: 24aa99d9 feat(fe-02): add product detail page.
+- Branch: main.
+- origin/main sincronizada.
+- Validações na main: npm run typecheck passou; npm run build passou.
+- Rota criada: /products/[slug].
+
+## Entrega da FE-02
+
+- Corrigido o 404 ao clicar no ProductCard.
+- Criada página pública de detalhe do produto.
+- Exibe tipo, tipo de acesso, título, descrição e preços.
+- Botão Comprar ficou apenas visual/desativado.
+- Não houve integração de checkout.
+- Não houve mudança em .env, package.json, migrations, Supabase ou Stripe.
+
+## Estado dos worktrees no fechamento
+
+- main: 24aa99d9.
+- frontend: 24aa99d9.
+- backend: 55f9c3c5, atrás da main.
+- database: 55f9c3c5, atrás da main.
+- Antes de usar backend ou database novamente, rodar git merge main --ff-only dentro do worktree respectivo.
+
+## Notas operacionais aprendidas
+
+- Em worktree, .git pode ser arquivo, não diretório. Para exclude local, usar git rev-parse --git-path info/exclude.
+- Não usar git add . quando houver node_modules untracked.
+- Se tmux mostrar "sessions should be nested with care", significa que já há uma sessão tmux ativa; não é erro do Claude.
+- Para copiar no terminal Ubuntu, usar Ctrl+Shift+C. Ctrl+C interrompe comando.
+
+## Próxima tarefa provável
+
+- DOC-01: documentar visão multi-projeto e OpenSessions.
+- A Gabbs Product Factory deve ser documentada como sistema operacional multiagente reutilizável, não apenas como este SaaS.
+- Não abrir DOC-01 antes de rodar o handoff completo no próximo turno.
+
+## Frente ativa agora
+
+- Nenhuma feature ativa.
+- Última frente fechada: FE-02.
+- Próxima frente candidata: DOC-01.
