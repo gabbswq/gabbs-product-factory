@@ -48,6 +48,17 @@ Como Sala de Controle (ChatGPT), agentes (Claude Code / Codex) e Gabriel se rela
 - Decisão de arquitetura ou priorização? **lead**.
 - Revisão crítica antes de commit grande? **lead-opus**.
 
+## Lições operacionais aprendidas
+
+Regras tiradas de erros reais. Valem para Sala de Controle e para os agentes.
+
+1. **Documentação longa, handoff, planejamento e síntese de contexto** são trabalho de agente `lead` ou `lead-opus`. Não despachar isso para Bash gigante.
+2. **Bash no Ubuntu** é para comandos pequenos, verificáveis e reversíveis. Se o comando precisa de várias telas para ler, está errado de ferramenta.
+3. **Evitar heredoc gigante** (`cat <<EOF ... EOF`) para markdown longo. Quebra fácil no terminal e trava o shell em prompt `>`. Para arquivo grande, usar editor do agente.
+4. **Claude Code Desktop não é o padrão operacional.** Preferir **Claude Code CLI dentro do tmux**, junto dos worktrees.
+5. **ChatGPT gera prompts para agentes e comandos curtos.** Quando a tarefa é textual, não despejar scripts enormes — entregar o texto em si.
+6. **Resposta grande de agente:** sempre `agent-copy <agente>`. Nunca Ctrl+C nem cópia manual com mouse.
+
 ## Sinais de que é hora de novo handoff
 
 - Chat ficou lento ou começou a esquecer o que estava combinado.
