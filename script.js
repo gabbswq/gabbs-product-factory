@@ -261,4 +261,4 @@ loadedStyles.textContent = `
 `;
 document.head.appendChild(loadedStyles);
 
-console.log('🚀 InnovateTech Landing Page carregada com sucesso!');
+console.log('🚀 Void Crypt Landing Page carregada com sucesso!');

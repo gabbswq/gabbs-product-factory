@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static landing page for "InnovateTech" — a Portuguese-language digital solutions marketing site. Built with vanilla HTML, CSS, and JavaScript; no build tools, no dependencies, no frameworks.
+Static landing page for "Void Crypt" — a Portuguese-language digital solutions marketing site. Built with vanilla HTML, CSS, and JavaScript; no build tools, no dependencies, no frameworks.
 
 ## Running Locally
 
