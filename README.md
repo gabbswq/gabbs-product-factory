@@ -1,75 +1,116 @@
 # Gabbs Product Factory
 
-A personal AI-native product factory for building SaaS, media, education products and automation systems with Claude Code, Codex and multi-agent workflows.
+**Ideias, código e revisão com IA, dentro do VS Code.**
 
-## Vision
+Uma base pessoal de trabalho para desenvolver produtos em tarefas pequenas, com contextos separados por papel e evidências que podem ser auditadas. A fábrica é o processo de trabalho; não é um chat web nem um construtor automático de aplicações.
 
-Gabbs Product Factory is the operating base for building digital products with AI agents.
+[Começar no VS Code](docs/OPERATING_SYSTEM.md) · [Validação e limites](docs/WORKFLOW_VALIDATION.md) · [Regras para agentes](AGENTS.md)
 
-The goal is not just to build one website. The goal is to create a reusable factory for shipping:
+## Como funciona
 
-- SaaS products
-- media platforms
-- education products
-- paid communities
-- AI automation systems
-- client projects
-- experimental apps
+```text
+Ideia → prompt → agente no VS Code → resposta e código
+                                      ↓
+                              exportação em TXT
+                                      ↓
+                              auditoria externa
+                                      ↓
+                           próximo prompt → validar
+```
 
-## Current Product Direction
+Você decide a tarefa e autoriza as mudanças. O agente executa no contexto do projeto, o resultado é revisado e a próxima rodada recebe instruções específicas. Os quatro papéis não conversam nem trabalham automaticamente entre si.
 
-The first product direction is a media and education platform around AI, Web3, automation and digital product building.
+## Começar
 
-The core business flow is:
+**No setup pessoal já instalado:** abra o atalho **Abrir Fabrica**, confira **WSL: Ubuntu** e a janela **Fabrica | lead**. Use o painel **Codex**. O menu **Fabrica** permite abrir o guia, trocar de papel e exportar uma conversa salva.
 
-1. User discovers public content.
-2. User creates an account.
-3. User buys access through Stripe Checkout.
-4. Stripe webhook confirms the payment.
-5. The app unlocks private content, products or community access.
+**Para quem está chegando pelo GitHub:** clonar este repositório não instala o menu Fabrica. A extensão privada, os atalhos e o exportador ficam no setup local; ainda não são distribuídos aqui. É possível abrir o código no VS Code e trabalhar com um assistente disponível, seguindo o mesmo procedimento de revisão.
 
-## Tech Stack
+O passo a passo, as pastas e um primeiro prompt estão no [guia de operação](docs/OPERATING_SYSTEM.md).
 
-- Next.js
-- TypeScript
-- Supabase
-- Supabase Edge Functions
-- Stripe
-- GitHub
-- WSL / Ubuntu
-- tmux
-- OpenSessions
-- Claude Code
-- OpenAI Codex
-- Git worktrees
+## Papéis
 
-## Multi-Agent Workflow
+| Papel | Responsabilidade |
+| --- | --- |
+| Lead | Entender a ideia, delimitar tarefas e revisar resultados |
+| Frontend | Telas, componentes, acessibilidade e interação |
+| Backend | APIs, autenticação e regras de negócio |
+| Database | Schema, migrations, consultas e permissões |
 
-The project is operated with separate agent worktrees:
+Os papéis usam **Git worktrees** para manter pastas e branches isoladas. Não é necessário abrir todos de uma vez. Commit, merge, push, deploy e mudanças externas exigem aprovação.
 
-- `lead` — planning and orchestration
-- `frontend` — UI and product experience
-- `backend` — auth, APIs, payments and Edge Functions
-- `database` — schema, migrations and data validation
+## O que existe hoje
 
-Human approval is required before implementation, commit, merge and push.
+| Parte | Estado |
+| --- | --- |
+| Trabalho no VS Code + WSL | Setup pessoal configurado, com janelas por papel |
+| Exportação de conversas em TXT | Testada, sem teto artificial de linhas ou caracteres |
+| Ciclo prompt → auditoria → nova resposta | Ensaio de leitura realizado; evidências revalidadas |
+| Claude Code | Preparado no setup local; inferência não validada |
+| OpenRouter, Ollama e Qwen | Possibilidades futuras, sem integração instalada |
+| Orquestração autônoma entre agentes | Não implementada |
+| Economia de tokens | Hipótese a medir, não resultado demonstrado |
 
-## Repository Status
+O histórico completo fica como evidência. Na mesma conversa, envie os novos achados em vez de repetir tudo. Os limites do modelo e de anexos continuam existindo; o exportador não recupera conteúdo que o provedor não gravou.
 
-This repository is currently the foundation for Gabbs Product Factory.
+## Código experimental neste repositório
 
-Completed foundation work includes:
+A fábrica nasceu junto de um projeto de conteúdo e produtos digitais. Esse código foi preservado e **não representa um gateway de pagamentos pronto para produção**.
 
-- project cleanup
-- GitHub setup
-- multi-agent workspace
-- OAuth callback and provider sync
-- payments schema correction
-- Stripe Checkout Edge Function
-- Stripe webhook reconciliation fixes
-- local playbook and operating workflow
+Há páginas de artigos, catálogo e detalhe de produtos, autenticação, dashboard, APIs de produto e um proxy de checkout. Existem migrations e Edge Functions para checkout e webhook. O botão **Comprar** no detalhe do produto ainda está desativado; a presença dessas rotas não comprova pagamento de ponta a ponta.
 
-## Operating Principle
+| Tecnologia | Uso |
+| --- | --- |
+| Next.js 15, React 19 e TypeScript | Aplicação experimental |
+| Tailwind CSS e Radix UI | Componentes e interface |
+| Supabase e PostgreSQL | Autenticação, dados, RLS e migrations |
+| Supabase Edge Functions e Stripe | Código de integração de pagamentos |
+| VS Code, WSL e Git worktrees | Ambiente de desenvolvimento |
+| Codex / Claude Code | Assistentes, sujeitos ao acesso de cada provedor |
 
-Small tasks. Clear plans. Human approval. Isolated commits. Build before push.
+As versões exatas estão em [`package-lock.json`](package-lock.json). tmux e scripts antigos foram preservados como alternativa; não são requisito do fluxo visual atual.
+
+## Abrir o código
+
+No terminal do Ubuntu/WSL:
+
+```sh
+git clone https://github.com/gabbswq/gabbs-product-factory.git
+cd gabbs-product-factory
+code .
+```
+
+Se a pasta já existe, abra a cópia atual em vez de clonar novamente. No VS Code, **Arquivo > Abrir Pasta** também permite selecionar o projeto.
+
+Para executar a aplicação experimental, os scripts disponíveis são:
+
+```sh
+npm ci
+npm run dev
+npm run typecheck
+npm run build
+```
+
+Leia cada comando como uma ação separada: `dev` mantém um servidor aberto; `typecheck` e `build` são verificações posteriores. Configurar Supabase e pagamentos é uma etapa independente, descrita no [guia](docs/OPERATING_SYSTEM.md#aplicação-experimental). Não use credenciais de produção em testes nem publique arquivos `.env`.
+
+## Mapa do repositório
+
+| Caminho | Conteúdo |
+| --- | --- |
+| [`AGENTS.md`](AGENTS.md) | Regras de trabalho e segurança |
+| [`docs/OPERATING_SYSTEM.md`](docs/OPERATING_SYSTEM.md) | Guia atual de uso no VS Code |
+| [`docs/WORKFLOW_VALIDATION.md`](docs/WORKFLOW_VALIDATION.md) | Evidências, testes e limites |
+| [`docs/CHATGPT_HANDOFF.md`](docs/CHATGPT_HANDOFF.md) | Passagem de contexto e documentos históricos |
+| [`TASKS.md`](TASKS.md) | Registro de tarefas do código experimental |
+| [`src/`](src/) | Aplicação Next.js |
+| [`supabase/`](supabase/) | Migrations e Edge Functions |
+| [`scripts/`](scripts/) | Utilitários versionados |
+
+Documentos de visão e handoffs antigos descrevem etapas anteriores. Para o fluxo diário, comece pelo guia atual. O experimento de interface web do Studio foi retirado do fluxo operacional; uma eventual landing page serve apenas para apresentar o projeto e apontar para este repositório.
+
+## Princípios
+
+Tarefas pequenas. Aprovação humana. Evidências verificáveis. Credenciais fora das conversas e do Git. Backup antes de reorganizar. Nenhuma promessa de execução ilimitada ou produto pronto apenas porque um agente respondeu.
+
+[Segurança](docs/SECURITY.md) · [Gabriel Diniz](https://github.com/gabbswq)
 

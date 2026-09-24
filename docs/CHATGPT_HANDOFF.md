@@ -1,5 +1,7 @@
 # CHATGPT_HANDOFF
 
+> Fluxo atual: leia primeiro [README](../README.md), [guia do VS Code](OPERATING_SYSTEM.md) e [validação](WORKFLOW_VALIDATION.md). A pasta abaixo preserva snapshots históricos; suas instruções de tmux e próximas tarefas podem estar desatualizadas. Confira o código e o Git antes de retomá-las.
+
 Ponto de entrada para passagem de turno do projeto **Gabbs Product Factory** para um novo chat do ChatGPT.
 
 Este arquivo é só um índice. O conteúdo real fica em `docs/chatgpt-handoff/`.
