@@ -1,0 +1,24 @@
+{
+  "name": "gabbs-product-factory-landing",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test:e2e": "playwright test",
+    "check:bundle": "node scripts/check-bundle.mjs",
+    "verify": "npm run build && npm run test:e2e && npm run check:bundle"
+  },
+  "dependencies": {
+    "gsap": "^3.14.2"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.3",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^22.10.7",
+    "typescript": "~5.7.3",
+    "vite": "^6.4.1"
+  }
+}
