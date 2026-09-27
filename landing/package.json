@@ -9,6 +9,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "test:e2e": "playwright test",
     "check:bundle": "node scripts/check-bundle.mjs",
+    "measure:public": "node scripts/measure-public.mjs",
     "verify": "npm run build && npm run test:e2e && npm run check:bundle"
   },
   "dependencies": {

@@ -23,9 +23,10 @@ npm --prefix landing run dev
 npm ci
 npx playwright install chromium
 npm run verify
+npm run measure:public
 ```
 
-Os testes conferem a mensagem e o CTA do GitHub, navegação interna, ausência de formulário e chamadas externas, erros de JavaScript, responsividade em desktop/celular, suporte a movimento reduzido e acessibilidade automatizada com axe. O teste de bundle limita o JavaScript comprimido a 150 KiB. A landing não carrega fonte nem outros recursos de terceiros no caminho crítico.
+Os testes conferem a mensagem e o CTA do GitHub, navegação interna, ausência de formulário e chamadas externas, erros de JavaScript, responsividade em desktop/celular, suporte a movimento reduzido e acessibilidade automatizada com axe. O teste de bundle limita o JavaScript comprimido a 150 KiB. `measure:public` mede TTFB, FCP, LCP e tempo de carregamento no endereço publicado. A landing não carrega fonte nem outros recursos de terceiros no caminho crítico.
 
 ## Publicação
 
