@@ -6,6 +6,8 @@ Uma base pessoal de trabalho para desenvolver produtos em tarefas pequenas, com 
 
 [Começar no VS Code](docs/OPERATING_SYSTEM.md) · [Validação e limites](docs/WORKFLOW_VALIDATION.md) · [Regras para agentes](AGENTS.md)
 
+[Visitar a landing page do projeto](https://gabbswq.github.io/gabbs-product-factory/)
+
 ## Como funciona
 
 ```text
@@ -52,6 +54,14 @@ Os papéis usam **Git worktrees** para manter pastas e branches isoladas. Não �
 | Economia de tokens | Hipótese a medir, não resultado demonstrado |
 
 O histórico completo fica como evidência. Na mesma conversa, envie os novos achados em vez de repetir tudo. Os limites do modelo e de anexos continuam existindo; o exportador não recupera conteúdo que o provedor não gravou.
+
+## Landing page pública
+
+A página pública apresenta o processo e aponta para este repositório. Ela é estática e separada do app experimental abaixo: não tem chat, cadastro, formulário, banco de dados ou execução de agentes no navegador.
+
+No VS Code conectado ao WSL, abra a raiz do repositório. Use **Terminal > Executar Tarefa...** e escolha **Factory: instalar landing** uma vez; depois use **Factory: iniciar landing**. Para testar, rode **Factory: instalar navegador de testes** uma vez e então **Factory: validar landing**. O mesmo passo a passo está em [`landing/README.md`](landing/README.md).
+
+O código, os testes de navegador e o workflow de GitHub Pages ficam em [`landing/`](landing/) e [`.github/workflows/pages.yml`](.github/workflows/pages.yml). O endereço público é [`gabbswq.github.io/gabbs-product-factory`](https://gabbswq.github.io/gabbs-product-factory/).
 
 ## Código experimental neste repositório
 
@@ -102,6 +112,8 @@ Leia cada comando como uma ação separada: `dev` mantém um servidor aberto; `t
 | [`docs/WORKFLOW_VALIDATION.md`](docs/WORKFLOW_VALIDATION.md) | Evidências, testes e limites |
 | [`docs/CHATGPT_HANDOFF.md`](docs/CHATGPT_HANDOFF.md) | Passagem de contexto e documentos históricos |
 | [`TASKS.md`](TASKS.md) | Registro de tarefas do código experimental |
+| [`docs/PRODUCT_FACTORY_LANDING_SPEC.md`](docs/PRODUCT_FACTORY_LANDING_SPEC.md) | Escopo e critérios da landing pública |
+| [`landing/`](landing/) | Site estático, testes e instruções de execução |
 | [`src/`](src/) | Aplicação Next.js |
 | [`supabase/`](supabase/) | Migrations e Edge Functions |
 | [`scripts/`](scripts/) | Utilitários versionados |
