@@ -1,6 +1,6 @@
 # SPEC: Landing page do Gabbs Product Factory
 
-**Status:** Implementação em validação; copy e visual ainda podem ser revisados<br>
+**Status:** Publicada; copy e visual continuam abertos a revisão do Gabriel<br>
 **Data:** 2026-09-27<br>
 **Escopo:** Página pública de apresentação do repositório
 
@@ -81,7 +81,7 @@ O conteúdo final e a redação da abertura permanecem sujeitos à revisão do G
 - [x] O resultado visual é revisado em navegador em pelo menos uma largura desktop e uma largura móvel antes de qualquer publicação.
 - [x] A landing é gerada como site estático e o fluxo de publicação do GitHub Pages publica apenas esse diretório.
 - [x] Testes de navegador verificam conteúdo principal, destino do CTA, links, console sem erros e layout móvel; verificações automatizadas de acessibilidade e peso do bundle são executadas.
-- [ ] URL do GitHub Pages responde publicamente e aparece no README e no campo Website do repositório.
+- [x] URL do GitHub Pages responde publicamente e aparece no README e no campo Website do repositório.
 
 ## 8. Decisões em aberto
 
@@ -94,5 +94,5 @@ O conteúdo final e a redação da abertura permanecem sujeitos à revisão do G
 1. Auditar a landing existente e registrar diferenças sem apagar mudanças preexistentes. **Concluído.**
 2. Implementar a landing estática, testes e guia para executar no VS Code/WSL. **Concluído.**
 3. Mostrar a prévia local e validar os critérios em desktop e celular. **Concluído; aguardando comentários do Gabriel sobre direção visual e copy.**
-4. Revisar o conteúdo e o diff antes de publicar. **Em andamento.**
-5. Ativar GitHub Pages, adicionar o link público ao GitHub e validar a URL.
+4. Revisar o conteúdo e o diff antes de publicar. **Concluído.**
+5. Ativar GitHub Pages, adicionar o link público ao GitHub e validar a URL. **Concluído; HTTP 200 verificado.**
