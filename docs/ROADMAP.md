@@ -8,7 +8,7 @@ Direção vigente: [SPEC](MILLENNIUM_SPEC.md). Este roteiro separa entregas loca
 - [x] Aplicar Millennium à landing local, aos guias, aos títulos de workspace e à extensão privada.
 - [x] Preservar backups e os identificadores necessários à compatibilidade do setup.
 - [x] Disponibilizar um guia curto de primeiro turno e uma passagem de contexto atual.
-- [ ] Publicar a transição de marca e verificar a versão pública no GitHub/Pages.
+- [x] Publicar a transição de marca e verificar a versão pública no GitHub/Pages: [repositório](https://github.com/gabbswq/millennium), [landing](https://gabbswq.github.io/millennium/) e [deploy verificado](https://github.com/gabbswq/millennium/actions/runs/36852399589).
 - [ ] Confirmar com Gabriel a abertura e o uso da janela atualizada do VS Code.
 
 Os caminhos antigos ainda identificam as instalações existentes. Renomear um produto não exige descartar seus históricos de conversa nem recriar worktrees.

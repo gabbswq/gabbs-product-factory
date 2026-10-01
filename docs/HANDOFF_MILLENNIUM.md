@@ -13,6 +13,13 @@ Gabriel confirmou **Millennium** como marca. O produto é uma fábrica pessoal d
 - Nome Millennium na landing local, metadados do experimento, títulos de workspaces e extensão privada 0.1.3.
 - Iniciador local `C:\dev\Abrir Millennium.cmd` e guia `C:\dev\fabrica\COMECE-AQUI.md`.
 - Backups dos arquivos anteriores, sem descarte de alterações existentes.
+- Publicação autorizada em [gabbswq/millennium](https://github.com/gabbswq/millennium) e [landing Millennium](https://gabbswq.github.io/millennium/).
+
+## Publicação verificada
+
+O commit `c4e78546bc1d53c44066d3cca65d117d6235b7ed` publicou a direção e a marca. O [workflow de qualidade e deploy](https://github.com/gabbswq/millennium/actions/runs/36852399589) concluiu com sucesso. A página pública foi aberta em 1440, 390 e 320 pixels, com título Millennium, links para o novo repositório, assets carregados e sem erros de JavaScript ou overflow horizontal detectado.
+
+O estado remoto anterior está preservado na branch `backup/pre-millennium-20261001`, no commit `8d16366b1c95c7f41ecc0e43a5340cae09c41338`. Os arquivos de código de segurança, webhook e alterações de dependências que já estavam em andamento não entraram na publicação. O endereço público antigo da landing não deve ser usado como entrada atual.
 
 ## Evidências técnicas desta transição
 
@@ -27,7 +34,6 @@ Os registros e backups desta transição ficam no diretório local `millennium-t
 
 ## O que não foi concluído
 
-- Publicação da transição e eventual mudança do endereço remoto.
 - Uma sessão em que Gabriel execute, confira e retome uma tarefa sozinho.
 - Interface própria de conversa e prévia, executor persistente e coordenação automática.
 - Medição comparativa de tokens/custo e acesso pelo celular.
