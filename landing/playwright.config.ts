@@ -5,7 +5,7 @@ export default defineConfig({
   fullyParallel: true,
   reporter: 'list',
   use: {
-    baseURL: 'http://127.0.0.1:4173/gabbs-product-factory/',
+    baseURL: 'http://127.0.0.1:4173/millennium/',
     trace: 'retain-on-failure',
   },
   projects: [
@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   webServer: {
     command: 'npm run preview -- --host 127.0.0.1 --port 4173 --strictPort',
-    url: 'http://127.0.0.1:4173/gabbs-product-factory/',
+    url: 'http://127.0.0.1:4173/millennium/',
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,
   },

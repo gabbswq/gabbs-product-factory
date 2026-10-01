@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
-const repositoryUrl = 'https://github.com/gabbswq/gabbs-product-factory'
+const repositoryUrl = 'https://github.com/gabbswq/millennium'
 
 test('explica a proposta e leva ao repositório correto', async ({ page }) => {
   const errors: string[] = []
@@ -11,8 +11,8 @@ test('explica a proposta e leva ao repositório correto', async ({ page }) => {
   })
   await page.goto('./')
 
-  await expect(page).toHaveTitle(/Gabbs Product Factory/)
-  await expect(page.getByRole('heading', { name: 'Ideia. Código. Revisão.' })).toBeVisible()
+  await expect(page).toHaveTitle(/Millennium/)
+  await expect(page.getByRole('heading', { name: 'Millennium', exact: true })).toBeVisible()
   await expect(page.getByText(/dentro do VS Code/).first()).toBeVisible()
   await expect(page.getByRole('link', { name: /Explorar no GitHub/ })).toHaveAttribute('href', repositoryUrl)
   await expect(page.getByRole('heading', { name: 'A conversa não termina no prompt.' })).toBeVisible()
@@ -51,7 +51,7 @@ test('não depende de movimento para apresentar seu conteúdo', async ({ browser
   const context = await browser.newContext({ reducedMotion: 'reduce' })
   const page = await context.newPage()
   await page.goto('./')
-  await expect(page.getByRole('heading', { name: 'Ideia. Código. Revisão.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Millennium', exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: /Explorar no GitHub/ })).toBeVisible()
   expect(await page.evaluate(() => matchMedia('(prefers-reduced-motion: reduce)').matches)).toBe(true)
   await context.close()

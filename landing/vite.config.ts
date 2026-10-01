@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/gabbs-product-factory/',
+  base: '/millennium/',
   build: {
     target: 'es2020',
     assetsInlineLimit: 4096,

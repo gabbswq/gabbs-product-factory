@@ -1,69 +1,52 @@
-# Product Brief — Gabbs Product Factory
+# Millennium: direção do produto
 
-## One-line description
+Uma fábrica pessoal de software para construir com IA, compreender as mudanças e continuar o trabalho no próximo turno.
 
-A personal AI product factory for building SaaS, media, education products and automation systems.
+[SPEC e critérios de aceite](MILLENNIUM_SPEC.md) · [Primeiro turno](PRIMEIRO_TURNO.md) · [Roadmap](ROADMAP.md)
 
-## Founder intent
+## Para quem começamos
 
-Gabbs Product Factory exists to help Gabriel build and ship digital products using AI agents as a practical operating system.
+Uma pessoa com pouco tempo, em aprendizado de programação, que precisa transformar uma ideia em tarefas verificáveis sem administrar várias pastas, terminais e conversas manualmente. O primeiro usuário é Gabriel. O uso por outras pessoas é uma hipótese posterior, não um serviço já disponível.
 
-The project is both:
+## O problema
 
-1. a real SaaS/product foundation;
-2. a reusable workflow for future products.
+O fluxo manual permite executar tarefas, mas obriga a escolher diretórios, iniciar agentes, copiar respostas, pedir revisão em outro chat e reconstruir o contexto ao voltar. O setup no VS Code reduz alguns passos, mas ainda precisa ser validado pelo próprio usuário.
 
-## First product direction
+## Experiência pretendida
 
-The first product is a media and education platform focused on:
+1. Abrir um projeto e reconhecer onde o trabalho parou.
+2. Definir uma ordem de trabalho pequena, com resultado e teste claros.
+3. Acompanhar uma execução e consultar seus arquivos e evidências.
+4. Revisar o resultado e corrigir problemas confirmados.
+5. Entender uma mudança importante e fazer uma verificação manual.
+6. Encerrar com uma passagem de turno e uma próxima ação.
 
-- AI
-- automation
-- Web3
-- digital product building
-- practical entrepreneurship with AI
+A conversa e a prévia do resultado são referências de experiência de Replit e v0. Turnos, anomalias, revisão e aprendizado organizam o trabalho no Millennium. Isso não implica que já exista uma interface própria com essas funções.
 
-## Target audience
+## Limite entre presente e futuro
 
-- entrepreneurs
-- creators
-- early builders
-- beginners in AI tooling
-- people who want to use AI to build products or improve work
+| Hoje | Próximas etapas, ainda não entregues |
+| --- | --- |
+| Setup pessoal no VS Code/WSL e assistentes externos | Interface própria de conversa, prévia e retomada |
+| Papéis em pastas separadas, coordenados pela pessoa | Executor com estados persistidos, cancelamento e recuperação |
+| Exportação de registros para auditoria | Revisão automatizada com tentativas limitadas |
+| Landing estática de apresentação | Acesso remoto autenticado pelo celular |
+| Guias e passagem de turno em Markdown | Produto hospedado para terceiros |
 
-## Core offer
+O código Next.js/Supabase/Stripe existente é um experimento anterior. Não é a interface operacional da fábrica, não é um gateway pronto e não define o MVP atual.
 
-A paid content and education platform with:
+## Primeiro aceite
 
-- videos
-- articles
-- tutorials
-- templates
-- workflows
-- community access
-- practical examples of building with AI
+Gabriel precisa concluir uma tarefa pequena, abrir o resultado, explicar uma mudança e retomar depois pela passagem de turno. A instalação das ferramentas e testes técnicos são pré-requisitos, não o aceite de usabilidade.
 
-## Business model
+O exercício sugerido é um **Diário de Turno**, usando dados fictícios. A escolha da primeira tarefa deve caber no tempo disponível; o exercício completo não precisa ser feito numa sessão.
 
-Primary model:
+## Modelo de negócio e pagamentos
 
-- recurring subscription
+Primeiro validar utilidade pessoal. Distribuição, preço e eventual abertura do código serão decisões posteriores. Não há assinatura comercial definida nem economia de tokens comprovada.
 
-Supporting models:
+O gateway de pagamentos é uma aplicação futura que poderá ser construída com o Millennium. A descoberta comercial e o protótipo em sandbox têm escopo separado na SPEC; não fazem parte do aceite do primeiro turno.
 
-- one-time products
-- templates
-- cohorts
-- consulting
-- client projects
+## Histórico
 
-## MVP goal
-
-A user can:
-
-1. visit the public website;
-2. sign up or log in;
-3. buy a product/subscription through Stripe;
-4. have payment confirmed by webhook;
-5. access private content or benefits.
-
+A direção anterior de plataforma de conteúdo pago está preservada em [histórico](history/previous-product-direction/README.md). Seus checklists não são ordens atuais de implementação.

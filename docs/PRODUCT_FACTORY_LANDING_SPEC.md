@@ -1,4 +1,4 @@
-# SPEC: Landing page do Gabbs Product Factory
+# SPEC: Landing page do Millennium
 
 **Status:** Publicada; copy e visual continuam abertos a revisão do Gabriel<br>
 **Data:** 2026-09-27<br>
@@ -6,15 +6,15 @@
 
 ## 1. Contexto
 
-O Gabbs Product Factory é um setup pessoal de desenvolvimento assistido por IA, operado no VS Code. A pessoa define uma tarefa, trabalha com um agente no contexto do projeto, revisa o resultado e pode exportar a conversa para auditoria e continuidade.
+O Millennium é um setup pessoal de desenvolvimento assistido por IA, operado no VS Code. A pessoa define uma tarefa, trabalha com um agente no contexto do projeto, revisa o resultado e pode exportar a conversa para auditoria e continuidade.
 
 A página pública deve explicar essa proposta e levar a pessoa interessada ao repositório. Ela não é a fábrica em si. O fluxo de trabalho e seu estado atual estão descritos no [README](../README.md), no [guia de operação](OPERATING_SYSTEM.md) e na [validação do fluxo](WORKFLOW_VALIDATION.md).
 
 ## 2. Objetivo
 
-Apresentar de forma clara e visualmente atraente o que é o Gabbs Product Factory, como o processo pessoal funciona e onde consultar o código no GitHub.
+Apresentar de forma clara e visualmente atraente o que é o Millennium, como o processo pessoal funciona e onde consultar o código no GitHub.
 
-**Ação principal:** visitar `https://github.com/gabbswq/gabbs-product-factory`.
+**Ação principal:** visitar `https://github.com/gabbswq/millennium`.
 
 **Público inicial:** pessoas curiosas sobre desenvolvimento de produtos com assistência de IA, especialmente quem quer entender um fluxo supervisionado dentro de um editor de código. A página não deve sugerir que esse processo local já é um produto hospedado ou pronto para instalação pública.
 
@@ -23,7 +23,7 @@ Apresentar de forma clara e visualmente atraente o que é o Gabbs Product Factor
 ### 3.1 Direção de texto
 
 - Idioma principal: português do Brasil.
-- Explicar que a Factory organiza um processo de trabalho no VS Code; não é um SaaS nem um chat próprio.
+- Explicar que a Millennium organiza um processo de trabalho no VS Code; não é um SaaS nem um chat próprio.
 - Descrever o ciclo sem prometer autonomia ou resultados não validados: ideia e escopo → tarefa para o agente no editor → revisão do resultado → próximo prompt e validação.
 - Tratar os papéis Lead, Frontend, Backend e Database como contextos de trabalho separados, não como agentes que colaboram automaticamente.
 - Distinguir o setup pessoal privado do código experimental disponível no repositório.
@@ -63,13 +63,13 @@ O conteúdo final e a redação da abertura permanecem sujeitos à revisão do G
 - Auditar a landing de Next.js já existente e preservar o trabalho local. O app Next também contém APIs e rotas dinâmicas, portanto não presumir que todo ele possa ser exportado para GitHub Pages.
 - Manter a landing pública em um diretório estático isolado no mesmo repositório e publicar somente esse artefato pelo GitHub Pages. Não alterar nem remover as rotas do app experimental para viabilizar a publicação.
 - Evitar dependências no runtime da página; GSAP pode ser usado no build e entregue em bundle estático. Conteúdo principal e CTA devem continuar disponíveis sem animação.
-- O endereço público pretendido é `https://gabbswq.github.io/gabbs-product-factory/`; configurar o link de entrada no README e no campo Website do repositório quando a publicação estiver ativa.
-- O CTA do GitHub deve apontar exatamente para `https://github.com/gabbswq/gabbs-product-factory`.
+- O endereço público pretendido é `https://gabbswq.github.io/millennium/`; configurar o link de entrada no README e no campo Website do repositório quando a publicação estiver ativa.
+- O CTA do GitHub deve apontar exatamente para `https://github.com/gabbswq/millennium`.
 - Não confundir essa página pública com o setup local e privado do VS Code descrito no README do repositório principal.
 
 ## 7. Critérios de aceite
 
-- [x] A primeira tela identifica Gabbs Product Factory e explica, em linguagem direta, que é um fluxo de trabalho com IA dentro do VS Code.
+- [x] A primeira tela identifica Millennium e explica, em linguagem direta, que é um fluxo de trabalho com IA dentro do VS Code.
 - [x] Há um CTA visível que abre o repositório GitHub correto.
 - [x] A página mostra o ciclo ideia → agente no editor → revisão → próxima iteração, sem sugerir colaboração automática entre os quatro papéis.
 - [x] Não há chat, login, formulário, checkout, banco de dados ou funcionalidade de construção de software no navegador.

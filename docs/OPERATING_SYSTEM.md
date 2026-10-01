@@ -1,14 +1,14 @@
-# Usar a Factory no VS Code
+# Usar o Millennium no VS Code
 
 Este é o guia atual do setup pessoal. O caminho principal é o chat no editor, sem abrir tmux ou copiar o terminal com o mouse.
 
-[Voltar ao README](../README.md) · [Validação e limites](WORKFLOW_VALIDATION.md)
+[Primeiro turno](PRIMEIRO_TURNO.md) · [SPEC](MILLENNIUM_SPEC.md) · [Voltar ao README](../README.md) · [Validação e limites](WORKFLOW_VALIDATION.md)
 
 ## Primeira abertura
 
-1. No Windows, abra **Abrir Fabrica**, o atalho em `C:\dev`.
-2. Confira **Fabrica | lead** no título e **WSL: Ubuntu** no canto inferior esquerdo.
-3. Use o painel **Codex**. Se não aparecer, clique em **Fabrica: lead** na barra inferior e escolha **Conversar com Codex**. A paleta de comandos também oferece **Fabrica: Abrir chat Codex**.
+1. No Windows, abra **Abrir Millennium**, o atalho em `C:\dev`.
+2. Confira **Millennium | lead** no título e **WSL: Ubuntu** no canto inferior esquerdo.
+3. Use o painel **Codex**. Se não aparecer, clique em **Millennium: lead** na barra inferior e escolha **Conversar com Codex**. A paleta de comandos também oferece **Millennium: Abrir chat Codex**.
 4. Se o painel pedir login, faça-o diretamente na extensão. Não compartilhe senha, código de acesso ou chave.
 5. Envie o prompt abaixo. Ele pede apenas um diagnóstico, sem alterações.
 
@@ -22,7 +22,7 @@ Não altere arquivos, não instale dependências e não faça commit, push ou de
 
 Não precisa decorar comandos para conversar. O terminal integrado fica disponível para verificações quando for necessário.
 
-**Em uma instalação nova:** os atalhos, workspaces e a extensão Gabbs Fabrica são locais e não vêm com este clone. Abra a pasta pelo VS Code com WSL e use o assistente de sua preferência. O menu personalizado exige o pacote privado já instalado; este guia não promete um instalador público.
+**Em uma instalação nova:** os atalhos, workspaces e a extensão Millennium são locais e não vêm com este clone. Abra a pasta pelo VS Code com WSL e use o assistente de sua preferência. O menu personalizado exige o pacote privado já instalado; este guia não promete um instalador público.
 
 ## Um ciclo completo
 
@@ -30,10 +30,10 @@ Não precisa decorar comandos para conversar. O terminal integrado fica disponí
 2. **Planejar:** envie o briefing ao papel adequado e leia o plano.
 3. **Autorizar:** aprove uma alteração pequena, com critérios de aceite e sem permissões irrestritas.
 4. **Executar:** aguarde o agente concluir. Peça os arquivos alterados, os testes executados e as limitações.
-5. **Exportar:** menu **Fabrica > Exportar conversa salva em TXT**; escolha pela data e identificador.
+5. **Exportar, se necessário para revisão externa:** menu **Millennium > Exportar conversa salva em TXT**; escolha pela data e identificador.
 6. **Auditar:** revise o TXT antes de compartilhar. Confira também o código e os testes, não apenas a explicação do agente.
 7. **Corrigir:** envie os achados na mesma conversa e confira a nova resposta.
-8. **Fechar:** revise o diff e só então autorize commit, integração e publicação.
+8. **Fechar:** revise o diff, registre resultado, anomalias e próxima ação em `docs/HANDOFF_MILLENNIUM.md`. Commit, integração e publicação só acontecem com autorização.
 
 Prompt para a etapa de execução:
 

@@ -56,7 +56,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${product.title} — InnovateTech`,
+    title: `${product.title} — Millennium`,
     description: product.description ?? undefined,
   }
 }

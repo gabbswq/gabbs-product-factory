@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Factory: instalar landing",
+      "label": "Millennium: instalar landing",
       "type": "shell",
       "command": "npm --prefix landing ci",
       "options": { "cwd": "${workspaceFolder}" },
@@ -10,7 +10,7 @@
       "presentation": { "reveal": "always", "panel": "shared" }
     },
     {
-      "label": "Factory: iniciar landing",
+      "label": "Millennium: iniciar landing",
       "type": "shell",
       "command": "npm --prefix landing run dev -- --port 5173 --strictPort",
       "options": { "cwd": "${workspaceFolder}" },
@@ -19,7 +19,7 @@
       "presentation": { "reveal": "always", "panel": "shared" }
     },
     {
-      "label": "Factory: instalar navegador de testes",
+      "label": "Millennium: instalar navegador de testes",
       "type": "shell",
       "command": "npm --prefix landing exec -- playwright install chromium",
       "options": { "cwd": "${workspaceFolder}" },
@@ -27,7 +27,7 @@
       "presentation": { "reveal": "always", "panel": "shared" }
     },
     {
-      "label": "Factory: validar landing",
+      "label": "Millennium: validar landing",
       "type": "shell",
       "command": "npm --prefix landing run verify",
       "options": { "cwd": "${workspaceFolder}" },

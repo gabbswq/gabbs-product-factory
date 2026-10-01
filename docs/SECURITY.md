@@ -1,6 +1,6 @@
 # Security
 
-This document defines basic security rules for Gabbs Product Factory.
+This document defines basic security rules for Millennium.
 
 ## Core rule
 

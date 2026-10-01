@@ -1,32 +1,34 @@
-# Gabbs Product Factory
+# Millennium
 
-**Ideias, código e revisão com IA, dentro do VS Code.**
+**Uma fábrica pessoal de software: construir, revisar e aprender.**
 
-Uma base pessoal de trabalho para desenvolver produtos em tarefas pequenas, com contextos separados por papel e evidências que podem ser auditadas. A fábrica é o processo de trabalho; não é um chat web nem um construtor automático de aplicações.
+Antes chamado Gabbs Product Factory. A marca e o repositório público passam a ser Millennium. Os caminhos locais antigos são preservados por compatibilidade; a landing usa o endereço /millennium/.
+
+Uma base pessoal de trabalho para desenvolver produtos em tarefas pequenas, com contextos separados por papel e evidências que podem ser auditadas. Hoje a operação acontece no VS Code. A nova direção do Millennium é uma fábrica pessoal de software com turnos, execução, revisão e aprendizado; a interface própria e o acesso pelo celular ainda são propostas.
+
+[Visão e SPEC do Millennium](docs/MILLENNIUM_SPEC.md) · [Meu primeiro turno](docs/PRIMEIRO_TURNO.md) · [Passagem de turno](docs/HANDOFF_MILLENNIUM.md)
 
 [Começar no VS Code](docs/OPERATING_SYSTEM.md) · [Validação e limites](docs/WORKFLOW_VALIDATION.md) · [Regras para agentes](AGENTS.md)
 
-[Visitar a landing page do projeto](https://gabbswq.github.io/gabbs-product-factory/)
+[Visitar a landing page do projeto](https://gabbswq.github.io/millennium/)
 
 ## Como funciona
 
 ```text
-Ideia → prompt → agente no VS Code → resposta e código
-                                      ↓
-                              exportação em TXT
-                                      ↓
-                              auditoria externa
-                                      ↓
-                           próximo prompt → validar
+Abrir o turno → definir uma tarefa → executar no VS Code
+                                            ↓
+                                 testar e revisar as mudanças
+                                            ↓
+                                 aprender → passar o turno
 ```
 
-Você decide a tarefa e autoriza as mudanças. O agente executa no contexto do projeto, o resultado é revisado e a próxima rodada recebe instruções específicas. Os quatro papéis não conversam nem trabalham automaticamente entre si.
+Exportar o TXT é opcional para auditoria externa; não é necessário reenviar todo o histórico na mesma conversa. Você decide a tarefa e autoriza as mudanças. O agente executa no contexto do projeto, o resultado é revisado e a próxima rodada recebe instruções específicas. Os quatro papéis não conversam nem trabalham automaticamente entre si.
 
 ## Começar
 
-**No setup pessoal já instalado:** abra o atalho **Abrir Fabrica**, confira **WSL: Ubuntu** e a janela **Fabrica | lead**. Use o painel **Codex**. O menu **Fabrica** permite abrir o guia, trocar de papel e exportar uma conversa salva.
+**No setup pessoal já instalado:** abra o atalho **Abrir Millennium.cmd**, confira **WSL: Ubuntu** e a janela **Millennium | lead**. Use o painel **Codex**. O menu **Millennium** permite abrir o guia, trocar de papel e exportar uma conversa salva.
 
-**Para quem está chegando pelo GitHub:** clonar este repositório não instala o menu Fabrica. A extensão privada, os atalhos e o exportador ficam no setup local; ainda não são distribuídos aqui. É possível abrir o código no VS Code e trabalhar com um assistente disponível, seguindo o mesmo procedimento de revisão.
+**Para quem está chegando pelo GitHub:** clonar este repositório não instala o menu Millennium. A extensão privada, os atalhos e o exportador ficam no setup local; ainda não são distribuídos aqui. É possível abrir o código no VS Code e trabalhar com um assistente disponível, seguindo o mesmo procedimento de revisão.
 
 O passo a passo, as pastas e um primeiro prompt estão no [guia de operação](docs/OPERATING_SYSTEM.md).
 
@@ -59,9 +61,9 @@ O histórico completo fica como evidência. Na mesma conversa, envie os novos ac
 
 A página pública apresenta o processo e aponta para este repositório. Ela é estática e separada do app experimental abaixo: não tem chat, cadastro, formulário, banco de dados ou execução de agentes no navegador.
 
-No VS Code conectado ao WSL, abra a raiz do repositório. Use **Terminal > Executar Tarefa...** e escolha **Factory: instalar landing** uma vez; depois use **Factory: iniciar landing**. Para testar, rode **Factory: instalar navegador de testes** uma vez e então **Factory: validar landing**. O mesmo passo a passo está em [`landing/README.md`](landing/README.md).
+No VS Code conectado ao WSL, abra a raiz do repositório. Use **Terminal > Executar Tarefa...** e escolha **Millennium: instalar landing** uma vez; depois use **Millennium: iniciar landing**. Para testar, rode **Millennium: instalar navegador de testes** uma vez e então **Millennium: validar landing**. O mesmo passo a passo está em [`landing/README.md`](landing/README.md).
 
-O código, os testes de navegador e o workflow de GitHub Pages ficam em [`landing/`](landing/) e [`.github/workflows/pages.yml`](.github/workflows/pages.yml). O endereço público é [`gabbswq.github.io/gabbs-product-factory`](https://gabbswq.github.io/gabbs-product-factory/).
+O código, os testes de navegador e o workflow de GitHub Pages ficam em [`landing/`](landing/) e [`.github/workflows/pages.yml`](.github/workflows/pages.yml). O endereço público é [`gabbswq.github.io/millennium`](https://gabbswq.github.io/millennium/).
 
 ## Código experimental neste repositório
 
@@ -85,8 +87,8 @@ As versões exatas estão em [`package-lock.json`](package-lock.json). tmux e sc
 No terminal do Ubuntu/WSL:
 
 ```sh
-git clone https://github.com/gabbswq/gabbs-product-factory.git
-cd gabbs-product-factory
+git clone https://github.com/gabbswq/millennium.git
+cd millennium
 code .
 ```
 
@@ -118,7 +120,7 @@ Leia cada comando como uma ação separada: `dev` mantém um servidor aberto; `t
 | [`supabase/`](supabase/) | Migrations e Edge Functions |
 | [`scripts/`](scripts/) | Utilitários versionados |
 
-Documentos de visão e handoffs antigos descrevem etapas anteriores. Para o fluxo diário, comece pelo guia atual. O experimento de interface web do Studio foi retirado do fluxo operacional; uma eventual landing page serve apenas para apresentar o projeto e apontar para este repositório.
+Documentos de visão e handoffs antigos descrevem etapas anteriores. Para o fluxo diário, comece pelo guia atual. O experimento anterior do Studio está fora do fluxo operacional. A landing continua sendo a apresentação pública; a futura interface de trabalho tem escopo próprio na SPEC do Millennium.
 
 ## Princípios
 

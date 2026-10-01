@@ -40,7 +40,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
 .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 28px; color: var(--muted); font: 500 10px/1.4 var(--mono); letter-spacing: .08em; }
 .status-light { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px rgba(255, 148, 26, .65); }
 h1, h2, h3, p { text-wrap: pretty; }
-.hero h1 { margin: 0; font-size: clamp(64px, 7vw, 92px); font-weight: 630; letter-spacing: -.065em; line-height: .91; }
+.hero h1 { margin: 0; font-size: 52px; font-weight: 630; letter-spacing: 0; line-height: 1.05; }
 .hero h1 span { color: #777a7b; }
 .hero-description { max-width: 470px; margin: 28px 0 0; color: #b3b3b0; font-size: 17px; line-height: 1.65; }
 .hero-actions { display: flex; align-items: center; gap: 25px; margin-top: 32px; }
@@ -91,7 +91,7 @@ h1, h2, h3, p { text-wrap: pretty; }
   .shell { width: min(100% - 48px, 620px); }
   .hero { min-height: unset; grid-template-columns: 1fr; gap: 38px; padding-block: 76px 64px; }
   .hero-copy { padding: 0; }
-  .hero h1 { font-size: clamp(68px, 13vw, 86px); }
+  .hero h1 { font-size: 60px; }
   .workflow-visual { width: min(100%, 500px); justify-self: center; }
   .scroll-cue { display: none; }
   .intro { grid-template-columns: 1fr; gap: 26px; padding-block: 80px 62px; }
@@ -106,7 +106,7 @@ h1, h2, h3, p { text-wrap: pretty; }
   .brand { gap: 8px; font-size: 13px; }
   .hero { padding-block: 67px 54px; }
   .eyebrow { font-size: 9px; }
-  .hero h1 { font-size: clamp(61px, 17vw, 76px); }
+  .hero h1 { font-size: 36px; }
   .hero-description { margin-top: 22px; font-size: 15px; }
   .hero-actions { align-items: flex-start; flex-direction: column; gap: 19px; margin-top: 26px; }
   .hero-note { margin-top: 30px; font-size: 9px; }

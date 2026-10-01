@@ -3,7 +3,7 @@ import { listActiveProducts } from '@/lib/products'
 import { ProductCard } from '@/components/products/ProductCard'
 
 export const metadata: Metadata = {
-  title: 'Produtos — InnovateTech',
+  title: 'Produtos — Millennium',
   description: 'Cursos, memberships e roadmaps para quem quer dominar automação com IA.',
 }
 

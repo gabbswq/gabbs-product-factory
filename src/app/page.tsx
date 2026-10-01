@@ -6,7 +6,7 @@ import type { ArticleSummary } from '@/types/content'
 import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
-  title: 'InnovateTech — Automação com IA para seu negócio',
+  title: 'Millennium — Automação com IA para seu negócio',
   description:
     'Transforme processos repetitivos em fluxos automáticos com inteligência artificial. Consultoria, implementação e suporte em automação com IA.',
 }

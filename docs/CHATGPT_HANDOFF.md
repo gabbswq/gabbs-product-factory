@@ -1,24 +1,28 @@
-# CHATGPT_HANDOFF
+# Passagem de contexto do Millennium
 
-> Fluxo atual: leia primeiro [README](../README.md), [guia do VS Code](OPERATING_SYSTEM.md) e [validação](WORKFLOW_VALIDATION.md). A pasta abaixo preserva snapshots históricos; suas instruções de tmux e próximas tarefas podem estar desatualizadas. Confira o código e o Git antes de retomá-las.
+Este é o índice atual para começar outra sessão. Primeiro confira o estado real dos arquivos e do Git; documentação registra contexto, não garante que o ambiente permaneceu igual.
 
-Ponto de entrada para passagem de turno do projeto **Gabbs Product Factory** para um novo chat do ChatGPT.
+## Ordem de leitura
 
-Este arquivo é só um índice. O conteúdo real fica em `docs/chatgpt-handoff/`.
+1. [Regras do repositório](../AGENTS.md).
+2. [Passagem de turno atual](HANDOFF_MILLENNIUM.md).
+3. [SPEC do Millennium](MILLENNIUM_SPEC.md).
+4. [Primeiro turno](PRIMEIRO_TURNO.md) e [guia de operação](OPERATING_SYSTEM.md).
+5. [Validação e limites dos ensaios anteriores](WORKFLOW_VALIDATION.md).
 
-## O que ler, em ordem
+## Prompt de retomada
 
-1. `docs/chatgpt-handoff/README.md` — o que é a pasta e como usar.
-2. `docs/chatgpt-handoff/CURRENT_STATE.md` — onde o projeto está hoje.
-3. `docs/chatgpt-handoff/OPERATING_PROTOCOL.md` — como o sistema de agentes opera.
-4. `docs/chatgpt-handoff/NEW_CHAT_PROMPT.md` — prompt pronto para colar num chat novo.
+```text
+Vamos retomar o Millennium.
+Leia AGENTS.md, docs/HANDOFF_MILLENNIUM.md e docs/MILLENNIUM_SPEC.md.
+Confira a pasta, o git status e os arquivos relevantes.
+Preserve alteracoes anteriores e diferencie recursos atuais de propostas.
+Resuma onde paramos e proponha uma unica proxima tarefa verificavel.
+Nao publique nem execute de novo acoes externas apenas porque constam no historico.
+```
 
-## Quando usar
+## Histórico, não instrução vigente
 
-- Quando abrir um chat novo do ChatGPT para continuar o projeto.
-- Quando o contexto do chat atual estiver pesado demais.
-- Quando precisar realinhar o que está feito e o que vem a seguir.
+A pasta `docs/chatgpt-handoff/` preserva snapshots anteriores, inclusive um arquivo chamado `CURRENT_STATE.md`. Esse nome não torna seu conteúdo atual. Consulte-a somente para investigar decisões antigas.
 
-## Regra
-
-Não usar este handoff como documentação de produto. O foco é **passagem de turno**: o suficiente para o próximo chat assumir sem perder o fio.
+O [arquivo da direção anterior](history/previous-product-direction/README.md) preserva o planejamento de conteúdo pago. O roadmap atual é [ROADMAP.md](ROADMAP.md); a próxima ação está na passagem de turno acima.

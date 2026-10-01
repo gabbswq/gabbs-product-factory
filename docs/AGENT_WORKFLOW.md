@@ -1,72 +1,46 @@
-# Agent Workflow
+# Trabalho assistido no Millennium
 
-This document defines how AI agents should work inside Gabbs Product Factory.
+Leia [AGENTS.md](../AGENTS.md), a [SPEC vigente](MILLENNIUM_SPEC.md) e a [passagem de turno](HANDOFF_MILLENNIUM.md). Confirme os arquivos e o estado do Git antes de confiar em um relato anterior.
 
-## Main rule
+## Fluxo atual
 
-Agents do not implement before planning.
+Objetivo → plano curto → execução autorizada → teste → revisão → aprendizado → passagem de turno.
 
-Every task follows this sequence:
+O responsável humano coordena as etapas. Papéis em worktrees diferentes não conversam automaticamente entre si. Comece com um executor; especialize o trabalho apenas quando necessário.
 
-plan -> approval -> implementation -> validation -> commit -> merge -> build -> push
+## Abrir uma tarefa
 
-## Agent roles
+Registre objetivo, escopo, resultado esperado e teste de aceite. Confira `git status` e preserve alterações anteriores. Se o pedido for apenas uma conversa ou planejamento, não transforme a proposta em implementação sem alinhamento.
 
-- lead: plans the work and coordinates the system
-- frontend: works on UI, pages and user experience
-- backend: works on APIs, auth, payments and Edge Functions
-- database: works on schema, migrations, RLS and SQL validation
+Lead delimita e revisa; frontend cuida da interface; backend cuida de APIs e regras; database cuida de dados. A definição de cada tarefa, não o nome do papel, determina os arquivos autorizados.
 
-## Standard prompt ending
+## Executar e revisar
 
-Every agent request should end with:
+Use tarefas pequenas e verificáveis. Não coloque dois agentes escrevendo na mesma pasta. A revisão considera o pedido, o diff e os resultados de teste, além da resposta do executor.
 
-No final, gere uma seção chamada BLOCO PARA CHATGPT, com no máximo 80 linhas, sem tabelas largas, contendo:
-1. o que mudou;
-2. arquivos alterados;
-3. riscos;
-4. validações;
-5. se precisa de aprovação;
-6. próximo passo recomendado.
+Na mesma conversa, envie apenas a próxima instrução e os achados relevantes. Exportar o TXT é uma opção para auditoria externa, não uma etapa obrigatória de toda alteração. A exportação completa continua disponível como evidência; um resumo não deve ser apresentado como log integral.
 
-## Task size
+Ao encontrar um problema, confirme no código, corrija dentro do escopo e execute o teste pertinente. Um teste verde não demonstra requisitos que ele não cobre. Os estados persistidos, cancelamento integrado e rodadas automáticas da SPEC são trabalho futuro, não capacidades deste procedimento manual.
 
-Prefer small tasks.
+## Encerrar o turno
 
-Good examples:
+Atualize `docs/HANDOFF_MILLENNIUM.md` com:
 
-- fix one webhook issue
-- create one endpoint
-- validate one migration
-- refactor one file
+1. Objetivo e resultado desta sessão.
+2. Arquivos alterados e mudanças preexistentes que devem ser preservadas.
+3. Comandos executados, resultados e referências às evidências.
+4. Anomalias, riscos e o que não foi verificado.
+5. Um conceito explicado e uma pequena verificação para o usuário.
+6. Primeira ação concreta do próximo turno.
 
-Bad examples:
+Preserve referências úteis da passagem anterior. Não inclua chaves, dados privados do empregador, conversas integrais nem informações pessoais desnecessárias num documento destinado ao repositório público.
 
-- rebuild the whole backend
-- redesign the whole app
-- change frontend, backend and database at once
+## Versionamento
 
-## Commit rule
+Inspecione o diff antes de selecionar arquivos. Commits devem ser coerentes e revisáveis; não agrupe trabalho alheio por conveniência. Commit, merge, push e deploy dependem da autorização do usuário para a ação correspondente, não acontecem automaticamente no fechamento.
 
-One task equals one commit.
+Nunca versione `.env`, chaves, tokens, registros privados de conversas, `node_modules`, `.next`, `.venv` ou `__pycache__`. Não use reset ou recriação de worktrees para descartar problemas de contexto.
 
-## Merge rule
+## Retomada
 
-Only merge into main after:
-
-- git status --short
-- git diff --stat
-- task-specific validation
-- build check when applicable
-
-## Safety rule
-
-Never commit:
-
-- .env
-- API keys
-- secrets
-- node_modules
-- .next
-- .venv
-- __pycache__
+Leia a passagem de turno e confirme o estado atual. Proponha a próxima tarefa sem reexecutar automaticamente ações registradas no histórico. Os [snapshots antigos](history/previous-product-direction/README.md) documentam outra direção e não substituem a SPEC vigente.

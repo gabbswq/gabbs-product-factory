@@ -1,6 +1,6 @@
 import { chromium } from '@playwright/test'
 
-const targetUrl = process.argv[2] ?? 'https://gabbswq.github.io/gabbs-product-factory/'
+const targetUrl = process.argv[2] ?? 'https://gabbswq.github.io/millennium/'
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage()
 const externalRequests = []

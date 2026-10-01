@@ -5,8 +5,8 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'InnovateTech',
-    template: '%s | InnovateTech',
+    default: 'Millennium',
+    template: '%s | Millennium',
   },
   description: 'Automação com IA para negócios.',
 }
