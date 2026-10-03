@@ -227,3 +227,20 @@ repositório fictício, confirmação de que main/alterações anteriores perman
 preservadas e guia executável no VS Code. Portão de usabilidade **ainda aberto**:
 Gabriel abrir, concluir/explicar uma tarefa e retomar sem orientação de caminhos.
 Não considerar a etapa A nem o Millennium inteiro aprovados pelo ensaio automático.
+
+## 14. Prioridade escolhida: prova Pix em sandbox
+
+Ainda em 3 de outubro, Gabriel escolheu **priorizar pagamentos em sandbox**
+em vez do painel local de agentes. O executor do turno permanece preservado;
+o painel web foi adiado. Este incremento segue [PIX_SANDBOX_SPEC.md](PIX_SANDBOX_SPEC.md)
+e fica em `payments-sandbox/`, sem reclassificar o Next/Stripe antigo.
+
+Implementa laboratorio local com formulario, QR de simulacao nao pagavel,
+estado persistente, eventos e conciliacao. O adaptador Asaas Sandbox utiliza
+origin fixo e credenciais apenas do ambiente; o simulador nao usa rede externa.
+Nenhum pagamento real, comissao, split, saque ou cadastro de vendedor real.
+
+Testes tecnicos locais/CI, uso observado por Gabriel e homologacao externa
+sao tres portoes diferentes. Sem conta/credenciais de testes e transporte
+HTTPS do webhook, a homologacao Asaas permanece aberta. Nao divulgar o
+laboratorio como gateway pronto. Integrar apenas em develop, sem release.

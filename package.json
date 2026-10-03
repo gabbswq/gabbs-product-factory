@@ -9,7 +9,10 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "millennium": "node scripts/millennium/cli.mjs",
-    "test:millennium": "node --test scripts/millennium/tests/*.test.mjs"
+    "test:millennium": "node --test scripts/millennium/tests/*.test.mjs",
+    "pix:dev": "npm --prefix payments-sandbox run dev --",
+    "pix:test": "npm --prefix payments-sandbox test",
+    "pix:verify": "npm --prefix payments-sandbox run verify"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

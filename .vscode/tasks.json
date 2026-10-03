@@ -2,6 +2,32 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Millennium Pix: instalar laboratorio",
+      "type": "process", "command": "npm",
+      "args": ["--prefix", "payments-sandbox", "ci", "--ignore-scripts"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium Pix: iniciar simulador",
+      "type": "process", "command": "npm",
+      "args": ["run", "pix:dev"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": [],
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Millennium Pix: instalar navegador de testes",
+      "type": "process", "command": "npm",
+      "args": ["--prefix", "payments-sandbox", "exec", "--", "playwright", "install", "chromium"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium Pix: validar laboratorio",
+      "type": "process", "command": "npm",
+      "args": ["run", "pix:verify"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
       "label": "Millennium: diagnostico do turno",
       "type": "process", "command": "node",
       "args": ["scripts/millennium/cli.mjs", "doctor"],
