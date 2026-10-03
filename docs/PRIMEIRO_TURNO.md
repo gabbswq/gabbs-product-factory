@@ -2,6 +2,13 @@
 
 O objetivo desta sessão é entender o projeto e terminar sabendo o próximo passo. Reserve 20 a 30 minutos. Este roteiro usa o setup pessoal que já existe.
 
+**Na cópia `develop`, existe agora uma alternativa executável:** abra a raiz
+no VS Code/WSL e siga [Turno local](TURNO_LOCAL.md). Ela salva tarefa,
+respostas, revisão, testes e passagem de serviço sem copiar TXT manualmente.
+Comece pela tarefa **Millennium: diagnostico do turno**. O procedimento abaixo
+continua como alternativa de conversa no painel, não como prova de que o novo
+executor já foi aceito por Gabriel.
+
 1. No Windows, abra `C:\dev\Abrir Millennium.cmd`.
 2. No VS Code, confira **Millennium | lead** no título e **WSL: Ubuntu** embaixo. Clique em **Millennium: lead** e escolha **Conversar com Codex**.
 3. Envie a mensagem abaixo no painel Codex. Você pode conversar em português; não precisa começar pelo terminal.

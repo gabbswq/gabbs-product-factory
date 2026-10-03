@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "millennium": "node scripts/millennium/cli.mjs",
+    "test:millennium": "node --test scripts/millennium/tests/*.test.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

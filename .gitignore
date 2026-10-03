@@ -11,3 +11,4 @@ build/
 tsconfig.tsbuildinfo
 .venv/
 __pycache__/
+.millennium/
