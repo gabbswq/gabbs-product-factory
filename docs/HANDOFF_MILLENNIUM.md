@@ -2,6 +2,19 @@
 
 Registro de 1 de outubro de 2026. Revalidar antes de continuar.
 
+## Continuidade: receptor de webhook isolado
+
+O receptor opcional de `feature/pix-webhook-receiver` compartilha os registros
+do modo Asaas e aceita somente POST `/webhooks/asaas` numa porta separada,
+sem painel ou API de consulta. Ativacao exige `--asaas --webhook-port 4312`.
+O listener do painel continua loopback, com Host e CSRF inalterados.
+
+Consulte [WEBHOOK_SANDBOX.md](../payments-sandbox/WEBHOOK_SANDBOX.md) para o
+roteiro e a matriz de aceite. Nenhuma URL HTTPS foi aberta, nenhum tunnel
+instalado e nenhum webhook cadastrado em conta externa. Ainda faltam a conta
+Sandbox escolhida por Gabriel, credenciais inseridas no terminal, exposicao
+temporaria autorizada e eventos reais correlacionados com logs do provedor.
+
 ## Prioridade atualizada: Pix sandbox, 3 de outubro
 
 Gabriel respondeu **Priorizar pagamentos em sandbox**. O painel web de agentes
@@ -16,7 +29,7 @@ e **Millennium Pix: iniciar simulador** permitem testar pelo VS Code/WSL.
 O QR do simulador nao e pagavel; o adaptador Asaas nao usa producao.
 
 Ainda falta a conta de testes escolhida por Gabriel, a homologacao real Asaas
-e o transporte HTTPS restrito ao webhook. O servidor aceita apenas Host local:
+e o transporte HTTPS restrito ao webhook. O listener do painel aceita apenas Host local:
 nao expor um tunnel nem relaxar a protecao de origem para "fazer funcionar".
 Uma suite com fixtures nao prova que o provedor entregou um evento real.
 Gabriel ainda deve percorrer o fluxo e explicar uma entrada, estado e teste.

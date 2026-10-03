@@ -7,6 +7,7 @@ import { Repository } from './repository.mjs';
 import { Simulator, AsaasSandbox } from './providers.mjs';
 import { Payments } from './service.mjs';
 import { LabError, dto, today } from './domain.mjs';
+import { configureHttp, registerWebhook } from './http.mjs';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const emptyBody = { type: 'object', additionalProperties: false, properties: {} };
@@ -36,29 +37,20 @@ export function createApplication({ dataDir, mode = 'simulator', provider, key, 
   const csrf = randomBytes(32).toString('hex');
   const app = Fastify({ logger: false, bodyLimit: 32768, requestTimeout: 15000,
     ajv: { customOptions: { coerceTypes: false, removeAdditional: false } } });
+  configureHttp(app);
 
   app.addHook('onClose', async () => repo.close());
   app.addHook('onRequest', async (request, reply) => {
-    reply.header('Cache-Control', 'no-store');
-    reply.header('X-Content-Type-Options', 'nosniff');
-    reply.header('Referrer-Policy', 'no-referrer');
-    reply.header('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
     const host = request.headers.host;
     if (!/^127\.0\.0\.1:\d{1,5}$/.test(host ?? '') ||
         request.headers.origin && request.headers.origin !== `http://${host}` ||
         request.headers['sec-fetch-site'] === 'cross-site') throw new LabError(403, 'Origem local obrigatoria.');
     const webhook = request.routeOptions.url === '/webhooks/asaas';
-    if (webhook && !matches(request.headers['asaas-access-token'], token)) throw new LabError(401, 'Webhook nao autenticado.');
     if (!['GET', 'HEAD'].includes(request.method) && !webhook &&
         (request.headers.origin !== `http://${host}` || !matches(request.headers['x-millennium-csrf'], csrf))) {
       throw new LabError(403, 'Sessao local invalida. Recarregue a pagina.');
     }
   });
-  app.setErrorHandler((error, request, reply) => {
-    const status = error instanceof LabError ? error.status : error.validation || error.statusCode === 400 ? 400 : error.statusCode === 413 ? 413 : error.statusCode === 415 ? 415 : 500;
-    reply.code(status).send({ error: error instanceof LabError ? error.message : status === 400 ? 'Campos invalidos na requisicao.' : status === 413 ? 'Requisicao acima do limite local.' : status === 415 ? 'Use application/json.' : 'Falha interna. Os registros de teste foram preservados.' });
-  });
-  app.setNotFoundHandler((request, reply) => reply.code(404).send({ error: 'Recurso nao encontrado.' }));
 
   const files = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] };
   for (const [route, [name, type]] of Object.entries(files)) {
@@ -88,7 +80,6 @@ export function createApplication({ dataDir, mode = 'simulator', provider, key, 
   app.post('/api/charges/:id/reconcile', { schema: { params: chargeParams, body: emptyBody } }, async request => ({ charge: await payments.reconcile(request.params.id) }));
   app.post('/api/charges/:id/simulate', { schema: { params: chargeParams, body: { type: 'object', required: ['event'], additionalProperties: false, properties: { event: { type: 'string', enum: ['PAYMENT_RECEIVED', 'PAYMENT_CONFIRMED', 'PAYMENT_OVERDUE', 'PAYMENT_REFUNDED', 'PAYMENT_DELETED'] } } } } },
     async request => payments.simulate(request.params.id, request.body.event));
-  app.post('/webhooks/asaas', { schema: { body: { type: 'object', required: ['id', 'event'], properties: { id: { type: 'string', minLength: 1, maxLength: 150 }, event: { type: 'string', minLength: 1, maxLength: 100 }, payment: { type: 'object' } } } } },
-    async request => payments.webhook(request.body, request.headers['asaas-access-token']));
+  registerWebhook(app, payments);
   return { app, repo, payments };
 }
