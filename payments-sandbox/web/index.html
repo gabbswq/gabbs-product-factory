@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Millennium | Pix Sandbox</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="identity"><i data-lucide="layers-3" aria-hidden="true"></i><h1>Millennium</h1><span class="product">Pagamentos</span></div>
+    <div class="environment"><i data-lucide="flask-conical" aria-hidden="true"></i><span id="mode">Conectando</span></div>
+  </header>
+  <main>
+    <div class="page-heading"><div><span class="eyebrow">Loja de teste</span><h2>Cobran&ccedil;as Pix</h2></div>
+      <button id="new-charge" class="primary" disabled><i data-lucide="plus" aria-hidden="true"></i>Nova cobran&ccedil;a</button>
+    </div>
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <section class="metrics" aria-label="Resumo de teste">
+      <div><span>Cobran&ccedil;as</span><strong id="count">0</strong></div>
+      <div><span>Em aberto</span><strong id="pending">R$ 0,00</strong></div>
+      <div><span>Recebido (teste)</span><strong id="received">R$ 0,00</strong></div>
+    </section>
+    <div class="workspace">
+      <section class="records" aria-label="Registros">
+        <div class="record-toolbar">
+          <div class="tabs" role="tablist" aria-label="Registros de pagamento">
+            <button id="charges-tab" role="tab" aria-selected="true" aria-controls="charges-view">Cobran&ccedil;as</button>
+            <button id="events-tab" role="tab" aria-selected="false" aria-controls="events-view" tabindex="-1">Eventos</button>
+          </div>
+          <button id="refresh" class="icon-button" aria-label="Atualizar registros" title="Atualizar registros locais"><i data-lucide="refresh-cw" aria-hidden="true"></i></button>
+        </div>
+        <div id="charges-view" role="tabpanel" aria-labelledby="charges-tab">
+          <label class="filter">Estado <select id="filter"><option value="">Todos</option><option value="PENDING">Pendente</option><option value="CONFIRMED">Confirmado</option><option value="RECEIVED">Recebido</option><option value="OVERDUE">Vencido</option><option value="REFUNDED">Estornado</option><option value="CANCELED">Cancelado</option><option value="UNCERTAIN">Incerto</option><option value="REJECTED">Recusado</option></select></label>
+          <div class="table-scroll"><table><thead><tr><th>Cobran&ccedil;a</th><th>Valor</th><th>Estado</th></tr></thead><tbody id="rows"></tbody></table></div>
+          <p id="empty" class="empty">Nenhuma cobran&ccedil;a</p>
+        </div>
+        <div id="events-view" role="tabpanel" aria-labelledby="events-tab" hidden>
+          <ul id="events" class="event-list"></ul><p id="empty-events" class="empty">Nenhum evento</p>
+        </div>
+      </section>
+      <aside class="details" aria-label="Detalhe da cobranca">
+        <div class="detail-heading"><h3>Detalhe</h3><span id="detail-status"></span></div>
+        <p id="detail-empty" class="empty">Nenhuma cobran&ccedil;a selecionada</p>
+        <div id="detail" hidden>
+          <h4 id="description"></h4><p id="charge-id" class="mono identifier"></p>
+          <dl><div><dt>Valor</dt><dd id="detail-value"></dd></div><div><dt>Vencimento</dt><dd id="due-date"></dd></div><div><dt>Provedor</dt><dd id="provider"></dd></div></dl>
+          <p id="warning" class="warning" role="status" hidden></p>
+          <figure id="qr-frame" hidden><img id="qr-image" width="196" height="196" alt="QR Code de teste da cobranca selecionada"><figcaption id="qr-caption"></figcaption></figure>
+          <div id="code-block" hidden><div class="code-label"><label id="code-label" for="payload">C&oacute;digo de teste</label><button id="copy" class="icon-button" aria-label="Copiar codigo de teste" title="Copiar codigo"><i data-lucide="copy" aria-hidden="true"></i></button></div><textarea id="payload" readonly rows="3" spellcheck="false"></textarea></div>
+          <button id="reconcile" class="secondary full"><i data-lucide="refresh-cw" aria-hidden="true"></i>Conciliar</button>
+          <div id="simulation" class="simulation" hidden><label for="sim-event">Evento de teste</label><div class="simulation-controls"><select id="sim-event"><option value="PAYMENT_RECEIVED">Recebimento</option><option value="PAYMENT_CONFIRMED">Confirma&ccedil;&atilde;o</option><option value="PAYMENT_OVERDUE">Vencimento</option><option value="PAYMENT_REFUNDED">Estorno</option><option value="PAYMENT_DELETED">Cancelamento</option></select><button id="simulate" class="secondary" title="Aplicar evento simulado"><i data-lucide="play" aria-hidden="true"></i>Simular</button></div></div>
+        </div>
+      </aside>
+    </div>
+    <footer><span id="connection">Conectando ao laborat&oacute;rio local</span><span>Ambiente de teste &middot; sem dinheiro real</span></footer>
+  </main>
+  <dialog id="create-dialog" aria-labelledby="form-title">
+    <form id="create-form">
+      <div class="dialog-heading"><h3 id="form-title">Nova cobran&ccedil;a de teste</h3><button type="button" id="close-dialog" class="icon-button" aria-label="Fechar formulario" title="Fechar"><i data-lucide="x" aria-hidden="true"></i></button></div>
+      <label for="form-description">Descri&ccedil;&atilde;o</label><input id="form-description" name="description" maxlength="200" required autocomplete="off">
+      <div class="form-grid"><div><label for="form-amount">Valor em R$</label><input id="form-amount" name="amount" inputmode="decimal" maxlength="8" required autocomplete="off"></div><div><label for="form-date">Vencimento</label><input id="form-date" name="dueDate" type="date" required></div></div>
+      <p id="form-error" class="warning" role="alert" hidden></p>
+      <div class="form-actions"><button type="button" id="cancel-dialog" class="secondary">Cancelar</button><button type="submit" id="submit-charge" class="primary"><i data-lucide="qr-code" aria-hidden="true"></i>Gerar cobran&ccedil;a</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

@@ -2,6 +2,27 @@
 
 Registro de 1 de outubro de 2026. Revalidar antes de continuar.
 
+## Prioridade atualizada: Pix sandbox, 3 de outubro
+
+Gabriel respondeu **Priorizar pagamentos em sandbox**. O painel web de agentes
+foi adiado; o executor de turnos continua preservado. O laboratorio separado
+em `payments-sandbox/` nasce na feature `feature/pix-sandbox`, para integrar
+somente em develop. Main, preview, landing e portfolio nao fazem parte do
+incremento. Nenhuma credencial, conversa privada ou dado de teste deve ir ao Git.
+
+Comece por [guia Pix](../payments-sandbox/README.md) e
+[SPEC Pix](PIX_SANDBOX_SPEC.md). As tarefas **Millennium Pix: instalar laboratorio**
+e **Millennium Pix: iniciar simulador** permitem testar pelo VS Code/WSL.
+O QR do simulador nao e pagavel; o adaptador Asaas nao usa producao.
+
+Ainda falta a conta de testes escolhida por Gabriel, a homologacao real Asaas
+e o transporte HTTPS restrito ao webhook. O servidor aceita apenas Host local:
+nao expor um tunnel nem relaxar a protecao de origem para "fazer funcionar".
+Uma suite com fixtures nao prova que o provedor entregou um evento real.
+Gabriel ainda deve percorrer o fluxo e explicar uma entrada, estado e teste.
+
+O texto abaixo registra o incremento anterior, nao a prioridade atual.
+
 ## Continuidade em 3 de outubro de 2026
 
 O foco escolhido foi o executor local do turno, não o gateway. A implementação

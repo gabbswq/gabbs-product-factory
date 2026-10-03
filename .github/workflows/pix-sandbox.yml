@@ -1,0 +1,39 @@
+name: Millennium Pix sandbox
+
+on:
+  push:
+    branches: [develop, preview, 'feature/**']
+    paths:
+      - 'payments-sandbox/**'
+      - 'scripts/millennium/store.mjs'
+      - 'package.json'
+      - '.vscode/tasks.json'
+      - '.github/workflows/pix-sandbox.yml'
+  pull_request:
+    branches: [develop, preview, main]
+    paths:
+      - 'payments-sandbox/**'
+      - 'scripts/millennium/store.mjs'
+      - 'package.json'
+      - '.vscode/tasks.json'
+      - '.github/workflows/pix-sandbox.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: payments-sandbox/package-lock.json
+      - run: npm --prefix payments-sandbox ci --ignore-scripts
+      - run: npm --prefix payments-sandbox exec -- playwright install --with-deps chromium
+      - run: npm run pix:verify
+      - run: npm run test:millennium

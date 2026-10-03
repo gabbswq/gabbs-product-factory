@@ -12,6 +12,27 @@ Uma base pessoal de trabalho para desenvolver produtos em tarefas pequenas, com 
 
 [Visitar a landing page do projeto](https://gabbswq.github.io/millennium/)
 
+## Prioridade atual: laboratório Pix (develop)
+
+Gabriel escolheu priorizar pagamentos em sandbox. O incremento separado em
+[`payments-sandbox/`](payments-sandbox/) tem formulário, registros persistentes,
+QR, estados, eventos e conciliação. O modo padrão é um **simulador local sem
+dinheiro real e com QR não pagável**. O adaptador Asaas Sandbox tem testes de
+contrato, mas a homologação externa e o uso observado por Gabriel ainda estão
+pendentes. Não é um gateway em produção nem parte da landing pública.
+
+Na raiz da cópia de desenvolvimento, em Ubuntu/WSL:
+
+```sh
+npm --prefix payments-sandbox ci --ignore-scripts
+npm run pix:dev
+```
+
+Abra o endereço impresso no terminal. No VS Code, use **Millennium Pix: instalar
+laboratorio** e depois **Millennium Pix: iniciar simulador**. Consulte o
+[guia de teste](payments-sandbox/README.md) e a [SPEC Pix](docs/PIX_SANDBOX_SPEC.md).
+O painel web de agentes ficou adiado, preservando o executor local abaixo.
+
 ## Turno local executável (develop)
 
 O primeiro executor local permite abrir uma tarefa, planejar com Codex,
@@ -44,7 +65,7 @@ npm run test:millennium
 Estado e respostas ficam em `.millennium/`, ignorado pelo Git. Escrita exige
 `feature/*`; a resposta do agente não aprova a tarefa sozinha. O workflow de
 testes não publica código. Este incremento não transforma a landing em um chat
-web, não implementa pagamentos e ainda precisa ser usado por Gabriel para
+web, não implementa pagamentos por si e ainda precisa ser usado por Gabriel para
 validar a usabilidade.
 
 ## Como funciona
@@ -84,6 +105,7 @@ Os papéis usam **Git worktrees** para manter pastas e branches isoladas. Não �
 | --- | --- |
 | Trabalho no VS Code + WSL | Setup pessoal configurado, com janelas por papel |
 | Turno local com Codex CLI | Incremento em develop: plano, execução, revisão, testes e passagem de turno |
+| Laboratório Pix | Simulador local testado; adaptador Asaas Sandbox sem homologação externa concluída |
 | Exportação de conversas em TXT | Testada, sem teto artificial de linhas ou caracteres |
 | Ciclo prompt → auditoria → nova resposta | Ensaio de leitura realizado; evidências revalidadas |
 | Claude Code | Preparado no setup local; inferência não validada |
@@ -152,6 +174,7 @@ Leia cada comando como uma ação separada: `dev` mantém um servidor aberto; `t
 | [`TASKS.md`](TASKS.md) | Registro de tarefas do código experimental |
 | [`docs/PRODUCT_FACTORY_LANDING_SPEC.md`](docs/PRODUCT_FACTORY_LANDING_SPEC.md) | Escopo e critérios da landing pública |
 | [`landing/`](landing/) | Site estático, testes e instruções de execução |
+| [`payments-sandbox/`](payments-sandbox/) | Laboratório Pix separado, guia e testes |
 | [`src/`](src/) | Aplicação Next.js |
 | [`supabase/`](supabase/) | Migrations e Edge Functions |
 | [`scripts/`](scripts/) | Utilitários versionados |

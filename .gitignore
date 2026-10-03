@@ -12,3 +12,7 @@ tsconfig.tsbuildinfo
 .venv/
 __pycache__/
 .millennium/
+.payments-sandbox/
+payments-sandbox/dist/
+payments-sandbox/test-results/
+payments-sandbox/playwright-report/
