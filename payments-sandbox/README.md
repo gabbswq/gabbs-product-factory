@@ -76,11 +76,15 @@ processo local e nao sao persistidas pela aplicacao.
 
 A API local aceita `/webhooks/asaas` com o header `asaas-access-token`, valida
 o pagamento e deduplica o ID do evento. **Asaas nao consegue entregar eventos
-diretamente em 127.0.0.1.** O servidor rejeita hosts externos; um tunnel por si
-so nao resolve esse contrato. Transporte HTTPS/reverse proxy restrito ao
-webhook exige outro incremento, autorizacao e testes antes de exposicao.
-Nenhum tunnel foi instalado ou aberto. Use Conciliar para uma consulta
-explicita de estado enquanto a entrega externa nao estiver homologada.
+diretamente em 127.0.0.1.** O painel continua rejeitando hosts externos. Agora
+existe um receptor opcional, separado e sem painel/API de consulta, ativado
+somente com `--asaas --webhook-port 4312`. Ele compartilha o estado e valida o
+mesmo token antes de ler o JSON. Transporte HTTPS externo exige autorizacao
+expressa; nenhum tunnel foi instalado ou aberto.
+
+O [roteiro de webhook sandbox](WEBHOOK_SANDBOX.md) explica as duas portas,
+configuracao futura no provedor e evidencias necessarias. Use Conciliar para
+uma consulta explicita enquanto a entrega externa nao estiver homologada.
 
 Nao marcar homologacao concluida com fixtures: faltam cobranca, QR, mudanca
 de estado, conciliacao e entrega de webhook observadas no sandbox externo.
@@ -120,6 +124,7 @@ O poll da tela consulta apenas registros locais, nunca o provedor.
 | `web/` | Formulario, tabela, QR, estados e eventos |
 | `app.mjs` | Rotas, validacao, CSRF e origem local |
 | `service.mjs` | Criacao, idempotencia, conciliacao e webhooks |
+| `webhook-receiver.mjs`, `http.mjs` | Listener exclusivo e contrato HTTP compartilhado |
 | `providers.mjs` | Simulador e adaptador fixo Asaas Sandbox |
 | `repository.mjs` | Persistencia atomica e lock de processo |
 | `domain.mjs` | Centavos, contratos e transicoes |

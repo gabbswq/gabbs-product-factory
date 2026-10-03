@@ -92,10 +92,14 @@ export class Payments {
     return dto(this.charge(id));
   }
 
-  async webhook(payload, token) {
+  authorizeWebhook(token) {
     const given = Buffer.from(typeof token === 'string' ? token : '');
     const expected = Buffer.from(this.token);
     if (given.length !== expected.length || !timingSafeEqual(given, expected)) throw new LabError(401, 'Webhook nao autenticado.');
+  }
+
+  async webhook(payload, token) {
+    this.authorizeWebhook(token);
     if (typeof payload.id !== 'string' || payload.id.length > 150 || !payload.id || typeof payload.event !== 'string') throw new LabError(400, 'Evento invalido.');
     const supported = Object.hasOwn(events, payload.event);
     const payment = payload.payment;

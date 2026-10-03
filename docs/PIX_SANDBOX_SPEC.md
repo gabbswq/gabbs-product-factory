@@ -61,7 +61,7 @@ locais de contrato nao comprovam entrega real do provedor.
 - Implementar em `feature/pix-sandbox`, integrar somente em `develop`.
   Sem preview, tag, main ou publicacao da aplicacao sem novo pedido.
 
-## Estado tecnico do incremento
+## Estado tecnico da primeira entrega
 
 Validacao local em Ubuntu/WSL, Node 20.20.2: `npm run pix:verify` passou com
 29 testes de API/dominio e 12 testes Chromium desktop/mobile. QR inspecionado
@@ -77,7 +77,32 @@ a garantia sobre dependencias futuras.
 **Nao homologado externamente.** Nao havia credenciais de testes disponiveis
 no ambiente verificado. Criacao/QR/consulta Asaas foram exercitados somente
 com fixtures locais. Webhook externo depende de transporte HTTPS ainda nao
-implementado/autorizado. Aceite de uso por Gabriel tambem continua pendente.
+aberto/autorizado. Aceite de uso por Gabriel tambem continua pendente.
+
+## Incremento de continuidade: receptor isolado
+
+Na feature `feature/pix-webhook-receiver`, o servidor recebe a opcao explicita
+`--asaas --webhook-port 4312`. Um segundo listener loopback registra somente
+POST `/webhooks/asaas`, sem painel, assets, sessao, consulta ou criacao. Nao
+abre tunnel, nao permite modo simulador e nao usa uma segunda instancia de
+armazenamento. O painel original conserva Host local e CSRF.
+
+O token e verificado antes de ler o JSON; regras de valor/cliente/referencia,
+deduplicacao e persistencia sao compartilhadas. Fechar o painel drena eventos
+do receptor antes de liberar o lock. Porta do receptor ocupada causa falha,
+sem fallback que possa fazer um tunnel apontar para outro processo.
+
+Validacao local deste incremento: `npm run pix:verify` passou com 39 testes
+de API/dominio (10 do receptor) e 12 de navegador. Dois listeners TCP reais
+com fixtures comprovaram compartilhamento de estado, isolamento do painel e
+fechamento sem liberar o lock antes de concluir o evento ativo. Uma falha de
+disco nao devolve 200 nem consome o ID do evento, permitindo retry posterior.
+O bundle do navegador permanece em 12.111 bytes; nao houve mudanca visual.
+
+O [roteiro externo e matriz de aceite](../payments-sandbox/WEBHOOK_SANDBOX.md)
+separa testes locais de HTTPS, cobranca/QR, evento/conciliacao reais e uso
+humano. Entrega do provedor continua nao verificada. Integracao apenas na
+develop; nenhuma promocao QA/main, publicacao ou registro externo automatico.
 
 ## Referencias verificadas
 
