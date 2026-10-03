@@ -2,6 +2,79 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Millennium: diagnostico do turno",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "doctor"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: preparar branch de trabalho",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "prepare", "--name", "${input:turnBranch}"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: abrir turno",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "start", "--objective", "${input:turnObjective}", "--acceptance", "${input:turnAcceptance}"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: planejar tarefa",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "plan"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: executar tarefa (altera arquivos)",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "run", "--approved"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: revisar tarefa",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "review"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: testar e registrar evidencia",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "check", "--script", "${input:turnScript}"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: confirmar aceite",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "accept", "--evidence", "${input:turnEvidence}"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: encerrar turno",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "close", "--summary", "${input:turnSummary}", "--next", "${input:turnNext}"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: retomar turno",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "resume"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: estado e proxima acao",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "status"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": []
+    },
+    {
+      "label": "Millennium: parar execucao",
+      "type": "process", "command": "node",
+      "args": ["scripts/millennium/cli.mjs", "stop"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "new" }
+    },
+    {
       "label": "Millennium: instalar landing",
       "type": "shell",
       "command": "npm --prefix landing ci",
@@ -34,5 +107,14 @@
       "problemMatcher": [],
       "presentation": { "reveal": "always", "panel": "shared" }
     }
+  ],
+  "inputs": [
+    { "id": "turnBranch", "type": "promptString", "description": "Nome da tarefa sem espacos (ex.: diario-de-turno)" },
+    { "id": "turnObjective", "type": "promptString", "description": "Qual unica tarefa voce quer construir?" },
+    { "id": "turnAcceptance", "type": "promptString", "description": "Como voce vai reconhecer e testar que funcionou?" },
+    { "id": "turnScript", "type": "promptString", "description": "Script de teste existente no package.json (ex.: test:millennium)" },
+    { "id": "turnEvidence", "type": "promptString", "description": "O que voce conferiu no resultado, nos testes e na revisao?" },
+    { "id": "turnSummary", "type": "promptString", "description": "O que foi feito e o que ficou pendente?" },
+    { "id": "turnNext", "type": "promptString", "description": "Qual e a primeira acao da proxima sessao?" }
   ]
 }

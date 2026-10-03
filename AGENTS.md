@@ -21,3 +21,20 @@ Fluxo:
 3. Implementar.
 4. Testar.
 5. Resumir.
+
+## Governanca de branches
+
+- Nunca editar, commitar ou publicar diretamente em `main`.
+- Novas funcionalidades e refatoracoes: conferir branch e alteracoes; abrir
+  `develop`, sincronizar com `git pull --ff-only`, criar `feature/nome`,
+  implementar, testar e commitar com mensagem semantica. Integrar somente em
+  `develop`, preservando alteracoes existentes e evitando escrita concorrente.
+- `preview` recebe `develop` somente quando Gabriel solicitar preparacao para
+  QA. Congelar escopo, permitir apenas correcoes e criar tag anotada
+  `vX.Y.Z-preview` apos o merge.
+- `main` recebe somente `preview` em uma release autorizada.
+- Excecao somente com a declaracao humana `HOTFIX URGENTE`: criar
+  `hotfix/nome` a partir de `main`; testar, integrar, versionar e ressincronizar
+  obrigatoriamente a correcao em `develop` e `preview`.
+- A execucao do Millennium nao faz commit, merge, push, deploy ou cobranca.
+  O executor nao pode promover codigo nem alterar credenciais.

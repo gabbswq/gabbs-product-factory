@@ -192,3 +192,38 @@ Referências enviadas e incorporadas em 1 de outubro:
 A arquitetura de marca adotada nesta SPEC mantém Millennium como a fábrica de software solicitada. O gateway é um produto futuro construído com ela; seu nome comercial definitivo pode ser decidido separadamente.
 
 Ainda faltam uma sessão observada de uso, o orçamento de hospedagem/modelos e a confirmação do primeiro segmento de comerciantes. Estas decisões não impedem a renomeação nem a validação pessoal.
+
+## 13. Incremento de desenvolvimento: turno local
+
+Em 3 de outubro de 2026, o próximo incremento prioriza a continuidade do
+trabalho pessoal em vez de iniciar o gateway ou reconstruir um chat web.
+Escopo: um executor local Node, sem novas dependências, operável pelas tarefas
+do VS Code e por `npm run millennium`. Detalhes em [TURNO_LOCAL.md](TURNO_LOCAL.md).
+
+O ciclo implementado tem abertura de tarefa com objetivo/aceite, planejamento
+somente leitura, execução explicitamente autorizada em `feature/*`, revisão
+somente leitura, teste npm registrado e aceite humano. Persiste IDs de projeto,
+turno, tarefa e tentativa, respostas, logs, diffs (inclusive arquivos novos),
+falhas e próxima ação. Permite parar, fechar com pendência e retomar sem
+repetir comandos. Evita duas execuções simultâneas na mesma pasta e não libera
+a pasta enquanto o executor ou seu filho continuarem ativos.
+
+Estados e métricas são observados, não inferidos de uma resposta otimista.
+Token usage é preservado quando informado. Custo e modelo efetivo não
+informado permanecem indisponíveis. Não há medição de economia de tokens.
+
+Governança confirmada por Gabriel: `feature/* -> develop -> preview -> main`.
+Implementação/testes/commits ocorrem na feature, integrada apenas na develop.
+QA e tag preview somente a pedido; release em main somente após preview.
+Hotfix direto exige a declaração humana `HOTFIX URGENTE` e ressincronização.
+Nenhuma promoção acontece automaticamente pelo executor.
+
+O incremento não inclui interface web, SQL, API pública, acesso remoto,
+coordenação multiagente, Claude ou pagamento real/sandbox. O código Next.js e
+as integrações antigas não foram reclassificados como gateway pronto.
+
+Portão de aceite técnico: suite de contrato verde, ensaio com Codex real em
+repositório fictício, confirmação de que main/alterações anteriores permaneceram
+preservadas e guia executável no VS Code. Portão de usabilidade **ainda aberto**:
+Gabriel abrir, concluir/explicar uma tarefa e retomar sem orientação de caminhos.
+Não considerar a etapa A nem o Millennium inteiro aprovados pelo ensaio automático.

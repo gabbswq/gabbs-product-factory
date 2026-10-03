@@ -2,6 +2,41 @@
 
 Registro de 1 de outubro de 2026. Revalidar antes de continuar.
 
+## Continuidade em 3 de outubro de 2026
+
+O foco escolhido foi o executor local do turno, não o gateway. A implementação
+em `feature/turno-local`, destinada apenas a `develop`, fica em
+`C:\Users\gabbs\Documents\ChatGPT\M\millennium` (WSL:
+`/mnt/c/Users/gabbs/Documents/ChatGPT/M/millennium`). O checkout pessoal
+`~/ai-projects/gabbs-product-factory` permanece separado, com suas alterações
+anteriores preservadas. Não troque/reset essa pasta para pegar o incremento.
+
+Comece por [TURNO_LOCAL.md](TURNO_LOCAL.md) e **Millennium: diagnostico do turno**
+no VS Code conectado ao WSL. O executor descobre Codex no PATH ou em
+`~/.local/bin`; isso corrige a entrada ausente em terminais não-login.
+
+Os primeiros ensaios passaram, mas suas pastas em `/tmp` já não estão
+disponíveis; não dependemos delas como evidência atual. O novo ensaio real em
+`.millennium/live-tOAFD7/` completou plano, implementação, cinco testes de
+validação de anomalia fictícia, revisão somente leitura e fechamento. Os
+registros persistem dentro desta cópia privada, fora do Git. Não gerou aceite
+humano: `accepted_evidence` permanece nulo e a tarefa fica em revisão.
+
+A suite automatizada passou com 32 testes, sem inferência. Cobre branch,
+locks, cancelamento (inclusive filho resistente ao SIGTERM), recuperação,
+evidências e aceite. O diagnóstico real encontrou Node 20.20.2 e Codex CLI
+0.158.0 autenticado no Ubuntu. Uma revisão independente do executor não
+encontrou achados bloqueadores, mas não rodou a suite em seu sandbox somente
+leitura; a execução dos testes foi feita separadamente.
+
+Este é um incremento técnico, não usabilidade aprovada. Próxima sessão:
+Gabriel abrir a develop isolada no VS Code, preparar uma feature, executar uma
+tarefa pequena e explicar uma mudança/teste. Registrar dificuldades reais
+antes de adicionar chat web, banco, mais agentes ou pagamentos.
+
+QA em preview, tags e produção em main não foram solicitados neste turno.
+O conteúdo abaixo preserva o histórico e as referências da transição anterior.
+
 ## Objetivo e decisão
 
 Gabriel confirmou **Millennium** como marca. O produto é uma fábrica pessoal de software assistida por IA, com turnos, execução, revisão, aprendizado e passagem de serviço. A experiência futura usa conversa e prévia como referências; a aplicação de pagamentos é uma iniciativa posterior, separada.
@@ -32,7 +67,7 @@ O estado remoto anterior está preservado na branch `backup/pre-millennium-20261
 
 Os registros e backups desta transição ficam no diretório local `millennium-transition` do chat de trabalho. Eles não devem ser publicados integralmente como documentação do produto.
 
-## O que não foi concluído
+## Pendências registradas em 1 de outubro
 
 - Uma sessão em que Gabriel execute, confira e retome uma tarefa sozinho.
 - Interface própria de conversa e prévia, executor persistente e coordenação automática.
@@ -47,7 +82,7 @@ O checkout principal já tinha alterações em README, `index.html`, workflows, 
 
 Os caminhos `gabbs-product-factory` e `C:\dev\fabrica` e os IDs internos `fabrica.*` permanecem por compatibilidade. O nome exibido é Millennium. Snapshots históricos não devem ser usados como roteiro atual.
 
-## Próxima ação concreta
+## Próxima ação da transição de 1 de outubro
 
 Abrir `Abrir Millennium.cmd`, conferir o título Millennium/lead e o contexto Ubuntu, e seguir [PRIMEIRO_TURNO.md](PRIMEIRO_TURNO.md) com Gabriel. Começar por uma proposta pequena do exercício Diário de Turno, com dados fictícios; não construir o aplicativo inteiro antes de observar o primeiro uso.
 

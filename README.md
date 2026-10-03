@@ -12,6 +12,41 @@ Uma base pessoal de trabalho para desenvolver produtos em tarefas pequenas, com 
 
 [Visitar a landing page do projeto](https://gabbswq.github.io/millennium/)
 
+## Turno local executável (develop)
+
+O primeiro executor local permite abrir uma tarefa, planejar com Codex,
+executar na feature, revisar, registrar um teste e salvar a passagem de turno.
+Não precisa copiar respostas entre chats nem instalar as dependências do app
+experimental. Precisa de Node 20+, Git, npm e Codex CLI no Ubuntu/WSL.
+
+Na cópia de desenvolvimento, abra a raiz no VS Code e escolha **Terminal >
+Executar Tarefa > Millennium: diagnostico do turno**. O diagnóstico não envia
+prompts. O restante do fluxo
+está no [guia do turno local](docs/TURNO_LOCAL.md).
+
+Para obter o incremento em outra máquina, clone `develop` em uma pasta nova
+(não sobrescreva um checkout existente):
+
+```sh
+git clone --branch develop https://github.com/gabbswq/millennium.git millennium-dev
+cd millennium-dev
+code .
+```
+
+No terminal Ubuntu da pasta aberta:
+
+```sh
+npm run millennium -- doctor
+npm run millennium -- help
+npm run test:millennium
+```
+
+Estado e respostas ficam em `.millennium/`, ignorado pelo Git. Escrita exige
+`feature/*`; a resposta do agente não aprova a tarefa sozinha. O workflow de
+testes não publica código. Este incremento não transforma a landing em um chat
+web, não implementa pagamentos e ainda precisa ser usado por Gabriel para
+validar a usabilidade.
+
 ## Como funciona
 
 ```text
@@ -41,13 +76,14 @@ O passo a passo, as pastas e um primeiro prompt estão no [guia de operação](d
 | Backend | APIs, autenticação e regras de negócio |
 | Database | Schema, migrations, consultas e permissões |
 
-Os papéis usam **Git worktrees** para manter pastas e branches isoladas. Não é necessário abrir todos de uma vez. Commit, merge, push, deploy e mudanças externas exigem aprovação.
+Os papéis usam **Git worktrees** para manter pastas e branches isoladas. Não é necessário abrir todos de uma vez. Novas tarefas usam `feature/* -> develop`; QA e release usam `develop -> preview -> main` apenas quando solicitados. O executor não faz commit, merge, push ou deploy.
 
 ## O que existe hoje
 
 | Parte | Estado |
 | --- | --- |
 | Trabalho no VS Code + WSL | Setup pessoal configurado, com janelas por papel |
+| Turno local com Codex CLI | Incremento em develop: plano, execução, revisão, testes e passagem de turno |
 | Exportação de conversas em TXT | Testada, sem teto artificial de linhas ou caracteres |
 | Ciclo prompt → auditoria → nova resposta | Ensaio de leitura realizado; evidências revalidadas |
 | Claude Code | Preparado no setup local; inferência não validada |
